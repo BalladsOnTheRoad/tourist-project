@@ -17,18 +17,16 @@
 
 
           <div class="form_box">
-            <Form ref="register_form" :model="register_form" :rules="ruleInline">
+            <Form ref="forget_form" :model="forget_form" :rules="ruleInline" show-message>
               <FormItem prop="email">
-                  <i-input type="text" prefix="md-person" placeholder="输入邮箱"  style="width: 283px" v-model="register_form.email"/>
+                  <i-input type="text" prefix="md-mail" placeholder="输入邮箱"  style="width: 283px" v-model="forget_form.email"/>
               </FormItem>
-              <FormItem prop="password">
-                  <i-input type="password" prefix="ios-lock" placeholder="输入密码"  style="width: 283px" v-model="register_form.password"/>
-              </FormItem>
-              <FormItem prop="repassword">
-                  <i-input type="password" prefix="ios-lock" placeholder="确认密码"  style="width: 283px" v-model="register_form.repassword"/>
+              <FormItem prop="verification">
+                  <i-input type="text" prefix="ios-lock" placeholder="输入验证码"  style="width: 185px" v-model="forget_form.verification"/>
+                  <Button class="get_verifycation" >获取验证码</Button>
               </FormItem>
               <FormItem>
-                  <Button type="primary" @click="handleSubmit('register_form')" class="register_button">注册</Button>
+                  <Button type="primary" @click="handleSubmit('forget_form')" class="forget_button">确定</Button>
               </FormItem>
             </Form>
 
@@ -36,19 +34,15 @@
 
             <div class="form_bottom">
               <p class="form_login"><router-link to="/login">登录</router-link></p>
-              <p class="forget_pass"><router-link to="/forgetpass">忘记密码？</router-link></p>
+              <p class="form_register"><router-link to="/register" >注册</router-link></p>
             </div>
-
-
             <div class="close_form">
               <a href="javascript:;" class="close_button">
               </a>
             </div>
+
           </div>
 
-
-          
-          
         </i-col>
     </div>
   </Row>
@@ -56,48 +50,24 @@
 <script>
 export default {
   data () {
-    const validatePass = (rule, value, callback) => {
-      if (value === '') {
-          callback(new Error('请输入你的密码！'));
-      } else {
-          if (this.register_form.repassword !== '') {
-              this.$refs.register_form.validateField('repassword');
-          }
-          callback();
-      }
-    };
-    const validatePassCheck = (rule, value, callback) => {
-        if (value === '') {
-            callback(new Error('请重新输入你的密码！'));
-        } else if (value !== this.register_form.password) {
-            callback(new Error('两次输入的密码不一致！'));
-        } else {
-            callback();
-        }
-    };
     return {
-      register_form: {
-          email     : '',
-          password  : '',
-          repassword: ''
+      forget_form: {
+          email       : '',
+          verification: ''
       },
       ruleInline: {
           email: [
-                { required: true, message: '请输入你的邮箱！', trigger: 'blur' },
+              { required: true, message: '请输入你的邮箱！', trigger: 'blur' },
                 { type: 'email', message: '邮箱格式不正确！', trigger: 'blur' }
           ],
-          password: [
-              { validator: validatePass, trigger: 'blur' }
-          ],
-          repassword: [
-              { validator: validatePassCheck, trigger: 'blur' }
+          verification: [
+              { required: true, message: '请输入验证码！', trigger: 'blur' ,type: 'string'}
           ]
       }
     }
   },
   methods: {
     handleSubmit(name) {
-      console.log('success')
         this.$refs[name].validate((valid) => {
             if (valid) {
                 this.$Message.success('Success!');
@@ -105,12 +75,12 @@ export default {
                 this.$Message.error('Fail!');
             }
         })
-    } 
+    }
   },
   beforeRouteLeave (to, from, next) {
     this.$Modal.info({
         title  : '提示框',
-        content: '<br/><p style="font-size:18px; ">你确认要离开该注册页吗？</p>',
+        content: '<br/><p style="font-size:18px; ">你确认要离开该页面吗？</p>',
         onOk   : () => {
             this.$Message.info('Clicked ok');
             next();
@@ -166,7 +136,7 @@ export default {
     }
   }
   .form_box{
-    margin-top: 10px;
+    margin-top: 60px;
   }
   /deep/ .ivu-input-default{
       height   : 44px;
@@ -183,8 +153,8 @@ export default {
     line-height: 42px;
     font-size  : 16px;
   }
-
-.register_button{
+  
+  .forget_button{
     width           : 283px;
     height          : 48px;
     background-color: #ff9d00;
@@ -198,6 +168,7 @@ export default {
 	  letter-spacing: 3px;
 	  color         : #ffffff;
   }
+  
   .form_bottom{
       width         : 283px;
       color         : #ffffff;
@@ -223,10 +194,11 @@ export default {
     .form_login{
       float: left;
     }
-    .forget_pass{
+    .form_register{
       float: right;
     }
   }
+  
   .close_form{
     width     : 20px;
     height    : 20px;
@@ -248,4 +220,22 @@ export default {
 /deep/ .ivu-form-item-required {
   margin-bottom: 26px;
 }   
+.get_verifycation{
+    width           : 102px;
+    height          : 44px;
+    background-color: #ff9d00;
+    border          : solid 1px #9d9d9d;
+    position        : absolute;
+    right           : 0;
+    top             : 0;
+    font-family     : MicrosoftYaHei;
+    font-size       : 16px;
+    font-weight     : normal;
+    font-stretch    : normal;
+    color           : #ffffff;
+    letter-spacing  : 0px;
+    text-align      : center;
+    padding-left    : 10px;
+}
+  
 </style>

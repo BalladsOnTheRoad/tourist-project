@@ -2,24 +2,24 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry : './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path      : path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename  : 'build.js'
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [
+        use : [
           'vue-style-loader',
           'css-loader'
         ],
       },
       {
         test: /\.scss$/,
-        use: [
+        use : [
           'vue-style-loader',
           'css-loader',
           'sass-loader'
@@ -27,15 +27,15 @@ module.exports = {
       },
       {
         test: /\.sass$/,
-        use: [
+        use : [
           'vue-style-loader',
           'css-loader',
           'sass-loader?indentedSyntax'
         ],
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
+        test   : /\.vue$/,
+        loader : 'vue-loader',
         options: {
           loaders: {
             // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
@@ -56,17 +56,30 @@ module.exports = {
         }
       },
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
+        test   : /\.js$/,
+        loader : 'babel-loader',
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
+        test   : /\.(png|jpg|gif|svg)$/,
+        loader : 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
-      }
+      },
+      {
+        test: /\.(eot|woff2|woff|ttf|svg)/,
+        use : [
+            {
+              loader : 'url-loader',
+              options: {
+                name           : '[name][hash:5].min.[ext]',
+                limit          : 5000,
+                useRelativePath: true,
+              }
+            }
+        ]
+      },
     ]
   },
   resolve: {
@@ -77,8 +90,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true,
-    overlay: true
+    noInfo            : true,
+    overlay           : true
   },
   performance: {
     hints: false
@@ -97,7 +110,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
-      compress: {
+      compress : {
         warnings: false
       }
     }),

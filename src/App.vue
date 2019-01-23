@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="header">
+    <!-- <div class="header">
       <div class="log">
         <ul>
           <li>
@@ -11,11 +11,11 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
     <router-view></router-view>
-    <div class="footer">
+    <!-- <div class="footer">
 
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -32,17 +32,32 @@ export default {
 
 <style lang="scss">
 html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,img {
-  margin: 0;
+  margin : 0;
   padding: 0;
 }
 
-*,
-*:after,
-*::before {
+*,*:after,*::before {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  -ms-box-sizing    : border-box;
+  -o-box-sizing     : border-box;
+  box-sizing        : border-box;
 }
+img{
+  display: block;
+}
+li{
+  list-style: none;
+}
+html,body{
+  width : 100%;
+  height: 100%;
+}
+#app{
+  width : 100%;
+  height: 100%;
+}
+
+
+
 </style>
