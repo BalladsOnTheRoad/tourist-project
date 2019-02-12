@@ -2,7 +2,7 @@ const state={
     userEditModalStatus : false,
     userWriteModalStatus: false,
     loginStatus         : false,
-    // userInfo            : null,
+    userInfo            : null,
 }
 const getters={
     getUEMStatus:state=>{
@@ -14,23 +14,23 @@ const getters={
     getLoginStatus:state=>{
         return state.loginStatus;
     },
-    // getUserInfo:state=>{
-    //     return state.userInfo;
-    // }
+    getUserInfo:state=>{
+        return state.userInfo;
+    }
 }
 const mutations={
     changeUEMStatus:(state,payload)=>{
-        state.userEditModalStatus = !state.userEditModalStatus;
+        state.userEditModalStatus = payload;
     },
     changeWMStatus:(state,payload)=>{
-        state.userWriteModalStatus = !state.userWriteModalStatus;
+        state.userWriteModalStatus = payload;
     },
     changeLoginStatus:(state,payload)=>{
-        state.loginStatus = !state.loginStatus;
+        state.loginStatus = payload;
     },
-    // changeUserInfo:(state,payload)=>{
-    //     state.userInfo = payload;
-    // }
+    changeUserInfo:(state,payload)=>{
+        state.userInfo = payload;
+    }
 }
 const actions={
     changeUEMStatusAction:({commit},payload)=>{
@@ -42,9 +42,9 @@ const actions={
     changeLoginStatusAction:({commit},payload)=>{
         commit('changeLoginStatus',payload);
     },
-    // changeUserInfoAction:({commit},payload)=>{
-    //     commit('changeUserInfo',payload);
-    // }
+    changeUserInfoAction:({commit},payload)=>{
+        commit('changeUserInfo',payload);
+    }
 }
 export default {
     state,

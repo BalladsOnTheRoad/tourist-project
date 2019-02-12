@@ -33,7 +33,16 @@ export default {
     computed:{
         ...mapGetters(['getUEMStatus','getWMStatus']),
     },
+    methods:{
+        ...mapActions(['changeUEMStatusAction','changeWMStatusAction']),
+    },
     mounted(){
+        
+    },
+    beforeRouteLeave (to, from, next) {
+        this.$store.dispatch('changeUEMStatusAction',false);
+        this.$store.dispatch('changeWMStatusAction',false);
+        next();
     }
 }
 </script>

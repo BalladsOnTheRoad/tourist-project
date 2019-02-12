@@ -13,20 +13,22 @@
 
 
             <div class="edit_form">
+               <Modal v-model="photoModalStatus" title="选择头像框" style="width:650px;">
+                   <div>
+                       <ul class="user_photo_list">
+                           <li v-for="(userPhotoList, index) in userPhotoLists" :key="index" @click="choosePhoto(index)">
+                               <img :src="userPhotoList.photoname" :alt="userPhotoList.id">
+                           </li>
+                       </ul>
+                   </div>
+                </Modal>
                 <Form ref="formInline" :model="formInline"  inline :rules="ruleValidate">
                     <div class="user_img_upload">
                         <div class="form_label">
                             <p>头像：</p>
                         </div>
                         <div class="upload">
-                            <div class="upload_warp">
-                                <div class="upload_button" @click="fileClick">
-                                </div>
-                                <div class="upload_warp_img_div" v-for="(item,index) of imgList" :key="index">
-                                    <img :src="imgList[imgList.length-1].file.src" alt="">
-                                </div>
-                            </div>
-                            <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none"/>
+                            <img :src="editUserInfo.photo" alt="用户头像" @click="photoModalStatus= true">
                         </div>
                     </div>
                         
@@ -45,7 +47,6 @@
                         <RadioGroup v-model="formInline.sex">
                             <Radio label="男"></Radio>
                             <Radio label="女"></Radio>
-                            <Radio label="未知"></Radio>
                         </RadioGroup>
                     </FormItem>
                     <FormItem prop="resume">
@@ -70,13 +71,15 @@
 <script>
 import { mapGetters, mapActions} from 'vuex';
 export default {
+    inject: ['reload'],
     data () {
         return {
-             formInline: {
-                user_img_path: '',
-                user         : '',
-                sex          : '',
-                resume       : '',
+            photoModalStatus: false,
+            formInline      : {
+                userPhoto: '',
+                user     : '',
+                sex      : '',
+                resume   : '',
             },
             imgList     : [],
             size        : 0,
@@ -91,87 +94,99 @@ export default {
                 resume: [
                     { required: true, message: '个人简介不允许为空', trigger: 'blur' }
                 ]
-            }
+            },
+            editUserInfo  : null,
+            userPhotoLists: null,
         }
     },
     computed:{
-        ...mapGetters(['getUEMStatus']),
+        ...mapGetters(['getUEMStatus','getUserInfo']),
     },
     methods: {
         ...mapActions(['changeUEMStatusAction']),
         formCancel(){
-            this.$store.dispatch('changeUEMStatusAction',null);
+            this.$store.dispatch('changeUEMStatusAction',false);
         },
         handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    this.$Message.success({
-                        content : "修改用户信息成功",
-                        duration: 2
-                    });
-                    this.$store.dispatch('changeUEMStatusAction',null);
-                    console.log(this.formInline);
+                    if(this.formInline.sex=='男'){
+                        this.formInline.sex = 1;
+                    }else{
+                        this.formInline.sex = 2;
+                    }
+                    this.axios({
+                        url   : 'http://47.98.224.37:8080/api/v1/users/edit',
+                        method: 'POST',
+                        data  : {
+                            photo    : this.formInline.userPhoto,
+                            nickname : this.formInline.user,
+                            sex      : this.formInline.sex,
+                            signature: this.formInline.resume
+                        },
+                        transformRequest:[
+                            function(data){
+                            let ret = "";
+                            for(let it in data){
+                                ret += encodeURIComponent(it)+"="+encodeURIComponent(data[it])+"&";
+                            }
+                            return ret;
+                            }
+                        ],
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(res=>{
+                        if(res.data.status==200){
+                            this.$Message.success({
+                                content : res.data.message,
+                                duration: 2
+                            });
+                            this.$store.dispatch('changeUEMStatusAction',false);
+                            this.reload();
+                        }else{
+                            this.$Message.error(res.data.message);
+                        }
+                    })
                 } else {
                     this.$Message.error('修改用户信息失败，请重新修改!');
                 }
             })
         },
-        fileClick() {
-            document.getElementById('upload_file').click();
+        changePhoto(){
         },
-        fileChange(el) {
-              if (!el.target.files[0].size) return;
-              this.fileList(el.target);
-              el.target.value = ''
-        },
-        fileList(fileList) {
-                var _this = this;
-                let files = fileList.files;
-              for (let i = 0; i < files.length; i++) {
-                  if (files[i].type != '') {
-                      this.fileAdd(files[i]);
-                  } else {
-                      this.folders(fileList.items[i]);
-                  }
-              }
-              var file   = fileList.files[0];
-              var imgStr = '';
-              if(typeof FileReader != 'undefined') {
-                var reader = new FileReader();
-                var imgFile;
-                reader.readAsDataURL(file);
-                var str           = '';
-                    reader.onload = function(e) {
-                  imgFile                        = e.target.result;
-                  imgStr                         = e.target.result;
-                  _this.formInline.user_img_path = imgStr
-
-                };
-              } else {
-                var URL      = window.URL || window.webkitURL;
-                var imageURL = URL.createObjectURL(file);
-              }
-              
-          },
-          fileAdd(file) {
-              this.size = this.size + file.size;
-              if (file.type.indexOf('image') == -1) {
-                  file.src = 'wenjian.png';
-                  this.imgList.push({
-                      file
-                  });
-              } else {
-                  let reader     = new FileReader();
-                      reader.vue = this;
-                  reader.readAsDataURL(file);
-                  reader.onload = function () {
-                      file.src = this.result;
-                      this.vue.imgList.push({
-                          file
-                      });
-                  }
-              }
-          },
+        choosePhoto(index){
+            this.formInline.userPhoto = this.userPhotoLists[index].photoname;
+            this.photoModalStatus     = false;
+            this.editUserInfo.photo   = this.formInline.userPhoto;
+        }
+    },
+    mounted(){
+        this.editUserInfo = this.getUserInfo;
+        console.log(this.editUserInfo.photo);   
+        if(this.editUserInfo.photo){
+            this.formInline.userPhoto = this.editUserInfo.photo;
+            this.formInline.user      = this.editUserInfo.nickname;
+            if(this.editUserInfo.sex==1){
+                this.formInline.sex = '男';
+            }else{
+                this.formInline.sex = '女';
+            }
+            this.formInline.resume = this.editUserInfo.signature;
+        }
+        
+    },
+    beforeMount(){
+        this.axios({
+            url   : 'http://47.98.224.37:8080/api/v1/photo/getphoto',
+            method: 'get',
+        }).then(res=>{
+            if(res.data.status==200){
+                this.userPhotoLists = res.data.data;
+            }else{
+                this.$Message.error('获取系统用户头像失败！');
+            }
+        })
     }
 }
 </script>
@@ -251,6 +266,13 @@ export default {
       border-radius   : 50%;
       position        : relative;
       float           : left;
+      overflow        : hidden;
+      img{
+          display: block;
+          width  : 100%;
+          height : 100%;
+          cursor : pointer;
+      }
     }
 
 
@@ -275,6 +297,30 @@ export default {
             color       : #000000;
         }
         
+    }
+
+    // 用户头像
+    .user_photo_list{
+        overflow: hidden;
+        li{
+            float        : left;
+            margin-right : 20px;
+            margin-bottom: 20px;
+            cursor       : pointer;
+        }
+        
+        li:nth-of-type(5n){
+            margin-right: 0;
+        }
+        img{
+            display      : block;
+            width        : 100px;
+            height       : 100px;
+            border-radius: 50%;
+        }
+    }
+    /deep/ .ivu-modal-content{
+        width: 615px;
     }
     /deep/ .ivu-form-item-content{
         &::after{
@@ -305,5 +351,8 @@ export default {
         right       : 0;
         bottom      : 0;
         padding-left: 95px;
+    }
+    /deep/ .ivu-modal{
+        top: 250px;
     }
 </style>

@@ -8,10 +8,8 @@
                 <div class="user_wrapper">
                     <div class="user_info">
                         <div class="user_img">
-                            <!-- <img :src="userInfo.photo"> -->
-                            <img src="http://47.98.224.37:8080/static/users/1/44d4d47d-01ba-4f3a-9f6b-49f514d1806b.jpg">
-
-                            
+                            <img :src="userInfo.photo">
+                            <!-- <img src="http://47.98.224.37:8080/static/users/1/44d4d47d-01ba-4f3a-9f6b-49f514d1806b.jpg"> -->
                         </div>
                         <div class="user_info_con">
                             <div class="user_info_top">
@@ -32,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="user_resume">
-                                <p>{{userInfo.signature}}</p>
+                                <p>{{userInfo.signature?userInfo.signature:'这个人很懒，什么都没留下。'}}</p>
                             </div>
                         </div>
                         
@@ -108,7 +106,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['changeUEMStatusAction']),
+        ...mapActions(['changeUEMStatusAction','changeUserInfoAction']),
         action_tab(index,title){
             this.action_current = index;
             switch (title) {
@@ -126,7 +124,7 @@ export default {
             }
         },
         changeModal(){
-            this.$store.dispatch('changeUEMStatusAction',null);
+            this.$store.dispatch('changeUEMStatusAction',true);
         },
         getUserInfo(userId){
             this.axios({
@@ -138,6 +136,7 @@ export default {
             }).then(res=>{
                 if(res.data.status==200){
                     this.userInfo = res.data.data;
+                    this.$store.dispatch('changeUserInfoAction',res.data.data);
                 }else{
                     this.$Message.error(res.data.message);
                 }
@@ -239,10 +238,15 @@ export default {
     .user_name{
         margin-right: 10px;
         span{
-            font-size   : 36px;
-            font-weight : normal;
-            font-stretch: normal;
-            color       : #333333;
+            display      : inline-block;
+            width        : 265px;
+            white-space  : nowrap;
+            overflow     : hidden;
+            text-overflow: ellipsis;
+            font-size    : 36px;
+            font-weight  : normal;
+            font-stretch : normal;
+            color        : #333333;
         }
     }
     .user_vip{

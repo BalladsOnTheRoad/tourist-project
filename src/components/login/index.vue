@@ -79,7 +79,6 @@ export default {
   methods: {
     ...mapActions(['changeLoginStatusAction','changeUserInfoAction']),
     handleSubmit(name) {
-        if(!this.$cookie.get('nickname')){
           this.$refs[name].validate((valid) => {
             if (valid) {
                 this.axios({
@@ -103,24 +102,24 @@ export default {
                   }
                 }).then(res=>{
                   if(res.data.status==200){
-                    this.$Message.success(res.data.message);
-                    this.$router.push({path:'/profile',query:{id:res.data.data.id}});
-                    // this.$cookie.set('email',this.login_form.email,7);
-                    // this.$cookie.set('password',this.login_form.password,7);
-                    this.$cookie.set('nickname',res.data.data.nickname,7);
-
-                    this.$cookie.set('JSESSIONID', {expires: 7, domain: '47.98.224.37'});
-
-                    this.$store.dispatch('changeLoginStatusAction',null);
-                    // this.axios({
-                    //     url   : 'http://47.98.224.37:8080/api/v1/users/personal',
-                    //     method: 'get',
-                    //     params: {
-                    //         id: 28,
-                    //     },
-                    // }).then(res=>{
-                    //   this.$store.dispatch('changeUserInfoAction',res.data.data);
-                    // })
+                    if(res.data.data.nickname!=this.$cookie.get('nickname')){
+                      this.$cookie.delete('nickname');
+                      this.$cookie.set('nickname',res.data.data.nickname);
+                      this.$store.dispatch('changeLoginStatusAction',true);
+                      this.$Message.success(res.data.message);
+                      this.$router.push({path:'/profile',query:{id:res.data.data.id}});
+                    }else{
+                       this.$Modal.confirm({
+                        title  : '提示框',
+                        content: '<br/><p style="font-size:18px; ">已登录，是否跳转到个人简介页面？</p>',
+                        onOk   : () => {
+                          this.$router.push({path:'/profile',query:{id:res.data.data.id}});
+                        },
+                        onCancel: () => {
+                            this.$Message.info('操作取消！');
+                        }
+                      });
+                    }
                   }else{
                     this.$Message.error(res.data.message);
                     this.$cookie.delete('nickname');
@@ -131,9 +130,7 @@ export default {
                 this.$Message.error('登录失败!');
             }
           })
-        }else{
-          this.$Message.error('已登录，无需重新登录！');
-        }
+          
         
     }
   },

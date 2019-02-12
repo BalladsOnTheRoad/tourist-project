@@ -84,16 +84,14 @@ export default {
     methods: {
         ...mapActions(['changeWMStatusAction']),
         formCancel(){
-            this.$store.dispatch('changeWMStatusAction',null);
+            this.$store.dispatch('changeWMStatusAction',false);
         },
         handleSubmit(name) {
-
-           
             this.$refs[name].validate((valid) => {
                 if (valid) {
                      var travelData          = JSON.parse(JSON.stringify(this.formInline));
                          travelData.image    = '1';
-                         travelData.describe = '1';
+                         travelData.describe = this.formInline.content;
                          travelData.areaId   = 1;
                     this.axios({
                         url             : 'http://47.98.224.37:8080/api/v1/travels/add',
@@ -117,7 +115,7 @@ export default {
                                 content : "添加游记成功!",
                                 duration: 2
                             });
-                            this.$store.dispatch('changeWMStatusAction',null);
+                            this.$store.dispatch('changeWMStatusAction',false);
                             this.reload();
                             this.formInline = null;
                         }else{

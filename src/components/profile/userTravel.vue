@@ -27,12 +27,9 @@ export default {
     methods:{
         ...mapActions(['changeWMStatusAction']),
         writeTravel(){
-            this.$store.dispatch('changeWMStatusAction',null);
+            this.$store.dispatch('changeWMStatusAction',true);
         },
         changePage(page){
-            // this.getTravelList(page);
-            // console.log(this.getTravelList);
-            // console.log(page)
             this.getTravelList(page);
         },
         getTravelList(currentPage){
@@ -45,7 +42,6 @@ export default {
                 }
             }).then(res=>{
                 if(res.data.status==200){
-                    this.$Message.success(res.data.message);
                     this.user_travel_items = res.data.data.entity;
                     this.total_size        = res.data.data.pageSize*res.data.data.totalPage;
                 }else if(res.data.status==401){
@@ -79,7 +75,6 @@ export default {
             }
         }).then(res=>{
             if(res.data.status==200){
-                this.$Message.success(res.data.message);
                 this.user_travel_items = res.data.data.entity;
                 this.total_size        = res.data.data.pageSize*res.data.data.totalPage;
             }else if(res.data.status==401){
@@ -119,10 +114,8 @@ export default {
             margin-right  : 10px;
         }
         a{
-            display: inline-block;
-            width  : 107px;
-            // background  : url('../../images/edit.png') no-repeat 0 5px;
-            // padding-left: 35px;
+            display  : inline-block;
+            width    : 107px;
             font-size: 24px;
             color    : #ff9d00;
         }
@@ -131,9 +124,6 @@ export default {
         width: 100%;
     }
     /deep/ .ivu-page{
-        // margin-top  : 80px;
-
-        // padding-left: 315px;
         position : absolute;
         left     : 50%;
         transform: translateX(-178px);

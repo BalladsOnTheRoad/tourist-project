@@ -91,8 +91,16 @@
                     </div>
                     
 
-                    <div class="userLogo">
-                        
+                    <div class="user_logo" v-if="loginStatus">
+                        <img :src="userPhoto" alt="用户头像" @click="user_profile">
+                    </div>
+                    <div class="user_login" v-else>
+                        <p>
+                            <router-link to="login">登录&nbsp;/&nbsp;</router-link>
+                        </p>
+                        <p>
+                            <router-link to="register"> 第一次来</router-link>
+                        </p>
                     </div>
                 </div>
                
@@ -103,9 +111,12 @@
     
 </template>
 <script>
+    import { mapGetters, mapActions} from 'vuex'
     export default {
         data () {
             return {
+                userPhoto     : null,
+                loginStatus   : false,
                 value1        : 0,
                 homeNavStatus : false,
                 desNavStatus  : false,
@@ -131,7 +142,11 @@
                 }
             }
         },
+        computed:{
+            ...mapGetters(['getLoginStatus','getUserInfo']),
+        },
         methods:{
+            ...mapActions(['changeLoginStatusAction']),
             homeNavShow(eve){
                 this.homeNavStatus = true;
             },
@@ -256,11 +271,33 @@
                     this.$Message.error('请输入搜索内容!');
                 }
                 
+            },
+            user_profile(){
+                this.$Modal.confirm({
+                    title  : '提示框',
+                    content: '<br/><p style="font-size:18px; ">是否跳转到个人简介页面？</p>',
+                    onOk   : () => {
+                        var userId = this.getUserInfo.id;
+                        this.$router.push({path:'/profile',query:{id:userId}});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('操作取消！');
+                    }
+                });
             }
         },
         mounted() {
             // console.log(this.navlist)
         },
+        beforeMount(){
+            // console.log(this.getLoginStatus);
+            if(this.$cookie.get('nickname')){
+                this.loginStatus = true;
+            }else{
+                this.loginStatus = false;
+            }
+            this.userPhoto = this.getUserInfo.photo;
+        }
     }
 </script>
 <style lang="scss" scoped>
@@ -390,7 +427,7 @@
             top               : -30px;
         }
     }
-    .userLogo{
+    .user_logo{
         width           : 60px;
         height          : 60px;
         background-color: #ff9d00;
@@ -399,8 +436,26 @@
         float           : right;
         margin-top      : 45px;
         margin-right    : 15px;
+        overflow        : hidden;
+        img{
+            display: block;
+            width  : 100%;
+            height : 100%;
+            cursor : pointer;
+        }
     }
 
+    .user_login{
+        float      : right;
+        padding-top: 45px;
+        p{
+            float: left;
+        }
+        a{
+            font-size: 24px;
+            color    : #ffffff;
+        }
+    }
 
     /*首页头部样式*/
     .home_search{
