@@ -5,13 +5,13 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              
+              <img src="../../images/logo.png" alt="" class="logo">
             </div>
           </div>
 
           <div class="project_name">
             <h1>
-              项目名
+              小猪旅行
             </h1>
           </div>
 
@@ -80,13 +80,13 @@ export default {
   beforeRouteLeave (to, from, next) {
     this.$Modal.info({
         title  : '提示框',
-        content: '<br/><p style="font-size:18px; ">你确认要离开该页面吗？</p>',
+        content: '<br/><p style="font-size:18px; ">你确认要离开该忘记密码页面吗？</p>',
         onOk   : () => {
-            this.$Message.info('Clicked ok');
+            this.$Message.info('操作成功！');
             next();
         },
         onCancel: () => {
-            this.$Message.info('Clicked cancel');
+            this.$Message.info('操作取消！');
         }
     });
   }
@@ -117,22 +117,21 @@ export default {
   }
   .login_logo_inner{
     @include circleBox(95px, 0.39);
-    margin: 0 auto;
+    margin     : 0 auto;
+    padding-top: 7px;
   }
   .project_name{
     margin-top: 20px;
     h1{
-      width         : 100px;
       height        : 34px;
+      text-align    : center;
       font-size     : 32px;
       font-weight   : normal;
       font-stretch  : normal;
       line-height   : 30px;
       letter-spacing: 0px;
-      color         : #062f41;
-      box-shadow    : 0px 2px 2px 0px
-      rgba(251, 236, 190, 0.75);
-      margin: 0 auto;
+      color         : #ff9d00;
+      margin        : 0 auto;
     }
   }
   .form_box{

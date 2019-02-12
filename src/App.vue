@@ -1,31 +1,31 @@
 <template>
   <div id="app">
-    <!-- <div class="header">
-      <div class="log">
-        <ul>
-          <li>
-            <router-link to="./login">登录</router-link>
-          </li>
-          <li>
-            <router-link to="./regist">注册</router-link>
-          </li>
-        </ul>
-      </div>
-    </div> -->
-    <router-view></router-view>
-    <!-- <div class="footer">
-
-    </div> -->
+    <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
 
 <script>
 export default {
  name: "app",
+ provide () {
+    return {
+      reload: this.reload
+    }
+  },
   data() {
     return {
-      msg: "Welcome to Your Vue.js App"
+      msg          : "Welcome to Your Vue.js App",
+      isRouterAlive: true,
     };
+  },
+  methods:{
+     reload () {
+      this.isRouterAlive = false;
+      console.log('页面刷新!');
+      this.$nextTick(function () {
+        this.isRouterAlive = true;
+      })
+    }
   }
 };
 </script>

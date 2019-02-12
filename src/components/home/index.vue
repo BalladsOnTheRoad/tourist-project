@@ -6,6 +6,8 @@
             <public-header></public-header>
           </div>
         </Header>
+
+        
         <Content>
           <div class="content_wrapper">
             <div class="hot_destination">
@@ -15,7 +17,12 @@
               
               <div class="hotDes_list">
                 <ul class="desList">
-                  <des-list v-for="n in 5" :key="n" :order="n"></des-list>
+                  <div class="des_list_box" v-for="(hot_area_item, index) in hot_area_items" :key="index">
+                    <des-list :order="index" :hot_area_item="hot_area_item"></des-list>
+
+                  </div>
+
+
                   <li class="des_last_list">
                     
                     <div class="list_top">
@@ -66,7 +73,9 @@
                 <h2>热门游记</h2>
               </div>
               <div class="traNode_list">
-                <tra-node-list v-for="(n) in 3" :key="n"></tra-node-list>
+                <div v-for="(hot_tra_note, index) in hot_tra_notes" :key="index">
+                  <tra-node-list :hot_tra_note="hot_tra_note"></tra-node-list>
+                </div>
                 <div class="last_list_mask">
                   <h4>
                     <router-link to="/">查看更多有趣游记和话题>></router-link>
@@ -91,7 +100,8 @@ import traNodeList from './TraNoteList';
 export default {
   data(){
     return{
-
+      hot_tra_notes : null,
+      hot_area_items: null,
     }
   },
   components:{
@@ -99,6 +109,30 @@ export default {
     'public-footer': publicFooter,
     'des-list'     : desList,
     'tra-node-list': traNodeList,
+  },
+  mounted(){
+    this.axios({
+        url   : 'http://47.98.224.37:8080/api/v1/travels/official',
+        method: 'get',
+        params: {
+            page    : 1,
+            pageSize: 3
+        }
+    }).then(res=>{
+        this.hot_tra_notes = res.data.data.entity;
+    })
+    this.axios({
+      url   : 'http://47.98.224.37:8080/api/v1/areas/hot',
+      method: 'get',
+    }).then(res=>{
+      this.hot_area_items = res.data.data;
+      
+      this.hot_area_items[0].perNum = 512312;
+      this.hot_area_items[1].perNum = 456431;
+      this.hot_area_items[2].perNum = 345345;
+      this.hot_area_items[3].perNum = 211312;
+      this.hot_area_items[4].perNum = 125434;
+    })
   }
 };
 </script>

@@ -10,7 +10,7 @@
                     <img src="../../images/desList01.jpg" alt="热门目的地一">
                 </div>
                 <div class="list_polutation">
-                    <p>5,651,221人去过</p>
+                    <p>{{hot_area_item.perNum}} 人去过</p>
                 </div>
             </div>
             
@@ -19,9 +19,7 @@
                 <div class="lb_title">
                     <div class="lb_title_left">
                         <p>
-                            <router-link to="/">泰国</router-link>
-                            <span>|</span>
-                            <router-link to="/">曼谷</router-link>
+                            <router-link to="/">{{hot_area_item.name}}</router-link>
                         </p>
                     </div>
                     <div class="lb_title_right">
@@ -37,22 +35,22 @@
                     <ul class="lc_list">
                         <li>
                             <router-link to="/">
-                                住宿 <span>1120</span>
+                                住宿 <span>{{hot_area_item.htnum}}</span>
                             </router-link>
                         </li>
                         <li>
                             <router-link to="/">
-                                景点 <span>2511</span>
+                                景点 <span>{{hot_area_item.ssnum}}</span>
                             </router-link>
                         </li>
                         <li>
                             <router-link to="/">
-                                美食 <span>960</span>
+                                美食 <span>{{hot_area_item.fdnum}}</span>
                             </router-link>
                         </li>
                         <li style="border:0; padding-right:0;">
                             <router-link to="/">
-                                购物 <span>500</span>
+                                购物 <span>{{hot_area_item.spnum}}</span>
                             </router-link>
                         </li>
                     </ul>
@@ -63,13 +61,12 @@
 </template>
 <script>
 export default {
-    props: ['order'],
+    props: ['order','hot_area_item'],
     data(){
         return{
         }
     },
     mounted(){
-        console.log(this.order);
     }
     
 }

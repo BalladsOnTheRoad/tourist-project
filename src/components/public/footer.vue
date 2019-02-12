@@ -76,7 +76,7 @@
                                 <router-link to="/">酒店</router-link>
                             </li>
                             <li>
-                                <router-link to="/">名宿</router-link>
+                                <router-link to="/">民宿</router-link>
                             </li>
                         </ul>
                     </div>
@@ -100,7 +100,7 @@ export default {
     
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     /*底部logo标题部分   footer_top*/
     .footer_top{
         overflow: hidden;

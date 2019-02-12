@@ -8,27 +8,31 @@
                 <div class="user_wrapper">
                     <div class="user_info">
                         <div class="user_img">
+                            <!-- <img :src="userInfo.photo"> -->
+                            <img src="http://47.98.224.37:8080/static/users/1/44d4d47d-01ba-4f3a-9f6b-49f514d1806b.jpg">
+
                             
                         </div>
                         <div class="user_info_con">
                             <div class="user_info_top">
                                 <div class="user_name top_list">
-                                    <span>董小坏</span>
+                                    <!-- <span>董小坏</span> -->
+                                    <span>{{userInfo.nickname}}</span>
                                 </div>
                                 <div class="user_vip top_list">
-                                    <router-link to="/">VIP</router-link>
+                                    <router-link to="/">VIP<span> {{userInfo.vip}}</span></router-link>
                                 </div>
                                 <div class="user_edit top_list">
                                     <a href="javascript:;" @click="changeModal"></a>
                                 </div>
                                 <div class="user_level top_list">
                                     <p>
-                                        等级：<span>Lv<i>6</i></span>
+                                        等级：<span>Lv <i>{{userInfo.level}}</i></span>
                                     </p>
                                 </div>
                             </div>
                             <div class="user_resume">
-                                <p>“哈哈哈哈哈哈哈哈哈哈”</p>
+                                <p>{{userInfo.signature}}</p>
                             </div>
                         </div>
                         
@@ -43,17 +47,17 @@
                             <ul class="us_list">
                                 <li>
                                     <router-link to="/">
-                                        关注<span>76</span>
+                                        关注<span>{{userInfo.follows}}</span>
                                     </router-link>
                                 </li>
                                 <li>
                                     <router-link to="/">
-                                        粉丝<span>135</span>
+                                        粉丝<span>{{userInfo.fans}}</span>
                                     </router-link>
                                 </li>
                                 <li>
                                     <router-link to="/">
-                                        好友<span>198</span>
+                                        好友<span>{{userInfo.friends}}</span>
                                     </router-link>
                                 </li>
                             </ul>
@@ -98,9 +102,9 @@ export default {
                 {content:'我的收藏',title:'collection'},
                 {content:'我的照片',title:'photo'}
             ],
-
             action_current  : 0,
             currentComponent: 'user-travel',
+            userInfo        : {},
         }
     },
     methods:{
@@ -123,7 +127,21 @@ export default {
         },
         changeModal(){
             this.$store.dispatch('changeUEMStatusAction',null);
-            console.log(this.getUEMStatus);
+        },
+        getUserInfo(userId){
+            this.axios({
+                url   : 'http://47.98.224.37:8080/api/v1/users/personal',
+                method: 'get',
+                params: {
+                    id: userId,
+                }
+            }).then(res=>{
+                if(res.data.status==200){
+                    this.userInfo = res.data.data;
+                }else{
+                    this.$Message.error(res.data.message);
+                }
+            })
         }
     },
     components:{
@@ -134,11 +152,10 @@ export default {
     computed:{
         ...mapGetters(['getUEMStatus']),
     },
-    mounted(){
-        // console.log(this.getUEMStatus);
-        // console.log(this.changeUEMStatus);
+    beforeMount(){
+        var userId = location.href.split('?')[1].split('=')[1];
+        this.getUserInfo(userId);
     }
-
 }
 </script>
 <style lang="scss">
@@ -200,6 +217,11 @@ export default {
         border-radius   : 50%;
         overflow        : hidden;
         float           : left;
+        img{
+            display: block;
+            width  : 100%;
+            height : 100%;
+        }
     }
     .user_info_con{
         float       : left;
@@ -225,17 +247,25 @@ export default {
     }
     .user_vip{
         border-radius: 15px;
-        border       : solid 1px #999999;
         margin-right : 14px;
         margin-top   : 10px;
+        overflow     : hidden;
         a{
-            display    : block;
-            width      : 64px;
-            height     : 30px;
-            font-size  : 24px;
-            line-height: 30px;
-            color      : #999999;
-            text-align : center;
+            display      : block;
+            width        : 70px;
+            height       : 30px;
+            font-size    : 24px;
+            line-height  : 30px;
+            color        : #999999;
+            border       : solid 1px #999999;
+            text-align   : center;
+            border-radius: 15px;
+            &:hover{
+                color           : #fff;
+                background-color: #ff9d00;
+                border          : solid 1px #ff9d00;
+
+            }
         }
     }
     .user_edit{
@@ -247,7 +277,9 @@ export default {
             width     : 25px;
             height    : 24px;
             background: url('../../images/editHead.png') no-repeat center;
-            
+            &:hover{
+                background: url('../../images/edit.png') no-repeat center;
+            }
 
         }
     }

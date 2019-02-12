@@ -3,48 +3,66 @@
         
         <div class="header_wrapper">
             <div class="nav">
-                <div class="home_logo">
-                    <h1>
-                        <router-link to="/" title="小猪旅行"></router-link>
-                    </h1>
-                </div>
-                <div class="navigation">
-                    <ul class="navList">
-                        <li @mouseover="homeNavShow" @mouseout="homehomeNavHide">
-                            <router-link to="/home" active-class="active" title="首页">首页</router-link>
-                        </li>
-                        <li title="destination" @mouseover="desNavShow" @mouseout="desNavHide">
-                            <router-link to="/" title="目的地">目的地</router-link>
-                            <div class="desNav navDiv" v-show="desNavStatus">
-                                <ul>
-                                    <li><router-link to="/">景点</router-link></li>
-                                    <li><router-link to="/">美食</router-link></li>
-                                    <li><router-link to="/">购物</router-link></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li title="strategy" @mouseover="strNavShow" @mouseout="strNavHide">
-                            <router-link to="/" title="攻略">攻略</router-link>
-                            <div class="strNav navDiv" v-if="strNavStatus">
-                            </div>
-                        </li>
-                        <li title="travel" @mouseover="traNavShow" @mouseout="traNavHide">
-                            <router-link to="/" title="游记">游记</router-link>
-                            <div class="traNav navDiv" v-if="traNavStatus">
-                            </div>
-                        </li>
-                        <li title="accommodation" @mouseover="accNavShow" @mouseout="accNavHide">
-                            <router-link to="/" title="住宿">住宿</router-link>
-                            <div class="accNav navDiv" v-if="accNavStatus">
-                            </div>
-                        </li>
-                    </ul>
+                <div class="nav_wrapper">
+
+                    <div class="home_logo">
+                        <h1>
+                            <router-link to="/" title="小猪旅行"></router-link>
+                        </h1>
+                    </div>
+                    <div class="navigation">
+                        <ul class="navList">
+                            <li @mouseover="homeNavShow" @mouseout="homehomeNavHide">
+                                <router-link to="/home" active-class="active" title="首页">首页</router-link>
+                            </li>
+                            <li title="destination" @mouseover="desNavShow" @mouseout="desNavHide">
+                                <router-link to="/" title="目的地">目的地</router-link>
+                                <div class="desNav navDiv" v-show="desNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="景点">景点</router-link></li>
+                                        <li><router-link to="/" title="美食">美食</router-link></li>
+                                        <li><router-link to="/" title="购物">购物</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li title="strategy" @mouseover="strNavShow" @mouseout="strNavHide">
+                                <router-link to="/" title="攻略">攻略</router-link>
+                                <div class="strNav navDiv" v-if="strNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="热门攻略">热门攻略</router-link></li>
+                                        <li><router-link to="/" title="出门推荐">出门推荐</router-link></li>
+                                        <li><router-link to="/" title="周边热门">周边热门</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li title="travel" @mouseover="traNavShow" @mouseout="traNavHide">
+                                <router-link to="/" title="游记">游记</router-link>
+                                <div class="traNav navDiv" v-if="traNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="路线">路线</router-link></li>
+                                        <li><router-link to="/" title="地图">地图</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li title="accommodation" @mouseover="accNavShow" @mouseout="accNavHide">
+                                <router-link to="/" title="住宿">住宿</router-link>
+                                <div class="accNav navDiv" v-if="accNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="酒店">酒店</router-link></li>
+                                        <li><router-link to="/" title="民宿">民宿</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+
+                    <div class="userLogo">
+                        <a href="javascript:;" @click="logOut">退出登录</a>
+                    </div>
+
                 </div>
                 
-
-                <div class="userLogo">
-                    
-                </div>
             </div>
         </div>
         
@@ -110,6 +128,41 @@
             },
             accNavHide(eve){
                 this.accNavStatus = false;
+            },
+            logOut(){
+                this.$Modal.confirm({
+                    title  : '退出登录',
+                    content: "<h4>你确认要退出登录吗？</h4>",
+                    onOk   : () => {
+                        this.axios({
+                            url             : 'http://47.98.224.37:8080/api/v1/users/exit',
+                            method          : 'get',
+                            transformRequest: [
+                                function(data){
+                                let ret = "";
+                                for(let it in data){
+                                    ret += encodeURIComponent(it)+"="+encodeURIComponent(data[it])+"&";
+                                }
+                                return ret;
+                                }
+                            ],
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            }
+                        }).then(res=>{
+                            if(res.data.status==200){
+                                this.$Message.success('退出登录成功！');
+                                this.$cookie.delete('nickname');
+                                this.$router.push('home');
+                            }else{
+                                this.$Message.error(res.data.message);
+                            }
+                        })
+                    },
+                    onCancel: () => {
+                        this.$Message.info('Clicked cancel');
+                    }
+                });
             }
         },
         mounted() {
@@ -118,12 +171,23 @@
 </script>
 <style lang="scss" scoped>
 
-    /*导航栏样式*/
-    .home_logo{
+    .nav{
+        overflow: hidden;
+        width   : 100%;
         position: absolute;
-        left    : 362px;
-        top     : 25px;
-        z-index : 1000;
+        left    : 0;
+        top     : 0;
+        z-index : 9999;
+    }
+    .nav_wrapper{
+        width : 1200px;
+        margin: 0 auto;
+    }
+    .home_logo{
+        float       : left;
+        margin-right: 256px;
+        margin-top  : 25px;
+        margin-left : 15px;
         h1{
             width : 100px;
             height: 100px;
@@ -136,12 +200,11 @@
         }
     }
     .navigation{
-        position: absolute;
-        left    : 694px;
-        top     : 40px;
-        z-index : 1000;
+        float: left;
     }
     .navList{
+        overflow  : hidden;
+        margin-top: 35px;
         li{
             list-style: none;
         }
@@ -196,16 +259,21 @@
         }
     }
     .userLogo{
-        width           : 60px;
-        height          : 60px;
-        background-color: #ff9d00;
-        border          : solid 2px #ffffff;
-        border-radius   : 50%;
-        position        : absolute;
-        right           : 361px;
-        top             : 59px;
-        z-index         : 1000;
+        float       : right;
+        margin-top  : 45px;
+        margin-right: 15px;
+        padding-top : 15px;
+        a{
+            display       : block;
+            font-size     : 24px;
+            font-weight   : normal;
+            font-stretch  : normal;
+            line-height   : 36px;
+            letter-spacing: 0px;
+            color         : #ffffff;
+        }
     }
+
 
 
     /*首页头部样式*/

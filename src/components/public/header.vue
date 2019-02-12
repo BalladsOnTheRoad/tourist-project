@@ -21,10 +21,10 @@
                     <div class="searchNav">
                         <ul class="searchList">
                             <RadioGroup v-model="searchSelected">
-                                <Radio label="全部"></Radio>
-                                <Radio label="酒店"></Radio>
-                                <Radio label="攻略"></Radio>
-                                <Radio label="目的地"></Radio>
+                                <Radio label="全部" kind="all"></Radio>
+                                <Radio label="酒店" kind="hotel"></Radio>
+                                <Radio label="攻略" kind="strategy"></Radio>
+                                <Radio label="目的地" kind="scenicSpot"></Radio>
                             </RadioGroup>
                         </ul>
                     </div>
@@ -37,48 +37,65 @@
             </div>
 
             <div class="nav">
-                <div class="home_logo">
-                    <h1>
-                        <router-link to="/" title="小猪旅行"></router-link>
-                    </h1>
-                </div>
-                <div class="navigation">
-                    <ul class="navList">
-                        <li @mouseover="homeNavShow" @mouseout="homehomeNavHide">
-                            <router-link to="/home"  title="首页" exact  active-class="active">首页</router-link>
-                        </li>
-                        <li title="destination" @mouseover="desNavShow" @mouseout="desNavHide">
-                            <router-link to="/" title="目的地" >目的地</router-link>
-                            <div class="desNav navDiv" v-show="desNavStatus">
-                                <ul>
-                                    <li><router-link to="/">景点</router-link></li>
-                                    <li><router-link to="/">美食</router-link></li>
-                                    <li><router-link to="/">购物</router-link></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li title="strategy" @mouseover="strNavShow" @mouseout="strNavHide">
-                            <router-link to="/" title="攻略">攻略</router-link>
-                            <div class="strNav navDiv" v-if="strNavStatus">
-                            </div>
-                        </li>
-                        <li title="travel" @mouseover="traNavShow" @mouseout="traNavHide">
-                            <router-link to="/" title="游记">游记</router-link>
-                            <div class="traNav navDiv" v-if="traNavStatus">
-                            </div>
-                        </li>
-                        <li title="accommodation" @mouseover="accNavShow" @mouseout="accNavHide">
-                            <router-link to="/" title="住宿">住宿</router-link>
-                            <div class="accNav navDiv" v-if="accNavStatus">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-
-                <div class="userLogo">
+                <div class="nav_wrapper">
+                     <div class="home_logo">
+                        <h1>
+                            <router-link to="/" title="小猪旅行"></router-link>
+                        </h1>
+                    </div>
                     
+                    <div class="navigation">
+                        <ul class="navList">
+                            <li @mouseover="homeNavShow" @mouseout="homehomeNavHide">
+                                <router-link to="/home"  title="首页" exact  active-class="active">首页</router-link>
+                            </li>
+                            <li @mouseover="desNavShow" @mouseout="desNavHide">
+                                <router-link to="/" title="目的地" >目的地</router-link>
+                                <div class="desNav navDiv" v-show="desNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="景点">景点</router-link></li>
+                                        <li><router-link to="/" title="美食">美食</router-link></li>
+                                        <li><router-link to="/" title="购物">购物</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li @mouseover="strNavShow" @mouseout="strNavHide">
+                                <router-link to="/" title="攻略">攻略</router-link>
+                                <div class="strNav navDiv" v-if="strNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="热门攻略">热门攻略</router-link></li>
+                                        <li><router-link to="/" title="出门推荐">出门推荐</router-link></li>
+                                        <li><router-link to="/" title="周边热门">周边热门</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li @mouseover="traNavShow" @mouseout="traNavHide">
+                                <router-link to="/" title="游记">游记</router-link>
+                                <div class="traNav navDiv" v-if="traNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="路线">路线</router-link></li>
+                                        <li><router-link to="/" title="地图">地图</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li @mouseover="accNavShow" @mouseout="accNavHide">
+                                <router-link to="/" title="住宿">住宿</router-link>
+                                <div class="accNav navDiv" v-if="accNavStatus">
+                                    <ul>
+                                        <li><router-link to="/" title="酒店">酒店</router-link></li>
+                                        <li><router-link to="/" title="民宿">民宿</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+
+                    <div class="userLogo">
+                        
+                    </div>
                 </div>
+               
             </div>
         </div>
         
@@ -146,8 +163,99 @@
                 this.accNavStatus = false;
             },
             navSearchCon(ev,ol){
-                // console.log(ev);
-                console.log(this.searchSelected);
+                if(ev){
+                    if(this.searchSelected=='全部'){
+                       this.axios({
+                            url   : 'http://47.98.224.37:8080/api/v1/search?kind=hotel&content=',
+                            method: 'get',
+                            params: {
+                                content: ev,
+                            }
+                        }).then(res=>{
+                            if(res.data.status==200){
+                                this.$Message.success(res.data.message);
+                                return;
+                            }else{
+                                 this.axios({
+                                    url   : 'http://47.98.224.37:8080/api/v1/search?kind=strategy&content=',
+                                    method: 'get',
+                                    params: {
+                                        content: ev,
+                                    }
+                                }).then(res=>{
+                                    if(res.data.status==200){
+                                        this.$Message.success(res.data.message);
+                                        return;
+                                    }else{
+                                         this.axios({
+                                            url   : 'http://47.98.224.37:8080/api/v1/search?kind=scenicSpot&content=',
+                                            method: 'get',
+                                            params: {
+                                                content: ev,
+                                            }
+                                        }).then(res=>{
+                                            if(res.data.status==200){
+                                                this.$Message.success(res.data.message);
+                                                return;
+                                            }else{
+                                                this.$Message.error(res.data.message);
+                                            }
+                                            return;
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }else if(this.searchSelected=='酒店'){
+                        this.axios({
+                            url   : 'http://47.98.224.37:8080/api/v1/search?kind=hotel&content=',
+                            method: 'get',
+                            params: {
+                                content: ev,
+                            }
+                        }).then(res=>{
+                            if(res.data.status==200){
+                                this.$Message.success(res.data.message);
+                            }else{
+                                this.$Message.error(res.data.message);
+                            }
+                            return;
+                        })
+                    }else if(this.searchSelected=='攻略'){
+                        this.axios({
+                            url   : 'http://47.98.224.37:8080/api/v1/search?kind=strategy&content=',
+                            method: 'get',
+                            params: {
+                                content: ev,
+                            }
+                        }).then(res=>{
+                             if(res.data.status==200){
+                                this.$Message.success(res.data.message);
+                            }else{
+                                this.$Message.error(res.data.message);
+                            }
+                            return;
+                        })
+                    }else if(this.searchSelected=='目的地'){
+                        this.axios({
+                            url   : 'http://47.98.224.37:8080/api/v1/search?kind=scenicSpot&content=',
+                            method: 'get',
+                            params: {
+                                content: ev,
+                            }
+                        }).then(res=>{
+                             if(res.data.status==200){
+                                this.$Message.success(res.data.message);
+                            }else{
+                                this.$Message.error(res.data.message);
+                            }
+                            return;
+                        })
+                    }
+                }else{
+                    this.$Message.error('请输入搜索内容!');
+                }
+                
             }
         },
         mounted() {
@@ -197,11 +305,22 @@
     }
 
     /*导航栏样式*/
-    .home_logo{
+    .nav{
+        width   : 100%;
         position: absolute;
-        left    : 362px;
-        top     : 25px;
-        z-index : 1000;
+        left    : 0;
+        top     : 0;
+        z-index : 9999;
+    }
+    .nav_wrapper{
+        width : 1200px;
+        margin: 0 auto;
+    }
+    .home_logo{
+        float       : left;
+        margin-right: 256px;
+        margin-top  : 25px;
+        margin-left : 15px;
         h1{
             width : 100px;
             height: 100px;
@@ -214,12 +333,10 @@
         }
     }
     .navigation{
-        position: absolute;
-        left    : 694px;
-        top     : 40px;
-        z-index : 1000;
+        float: left;
     }
     .navList{
+        margin-top: 25px;
         li{
             list-style: none;
         }
@@ -279,10 +396,9 @@
         background-color: #ff9d00;
         border          : solid 2px #ffffff;
         border-radius   : 50%;
-        position        : absolute;
-        right           : 361px;
-        top             : 59px;
-        z-index         : 1000;
+        float           : right;
+        margin-top      : 45px;
+        margin-right    : 15px;
     }
 
 

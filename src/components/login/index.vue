@@ -5,31 +5,25 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
+              <img src="../../images/logo.png" alt="" class="logo">
               
             </div>
           </div>
 
           <div class="project_name">
             <h1>
-              项目名
+              小猪旅行
             </h1>
           </div>
 
 
           <div class="form_box">
             <Form ref="login_form" :model="login_form" :rules="ruleInline">
-              <FormItem prop="user">
-                  <!-- <i-input type="text" v-model="login_form.user" placeholder="账号" class="login_user">
-                      <Icon type="md-person" slot="prepend" style="width:20px; background:#ffffff" size="15"></Icon>
-                  </i-input> -->
-                  <i-input type="text" prefix="md-person" placeholder="账号" class="login_user" style="width: 283px" v-model="login_form.user"/>
+              <FormItem prop="email">
+                  <i-input type="text" prefix="md-person" placeholder="账号" class="login_email" style="width: 283px" v-model="login_form.email"/>
               </FormItem>
               <FormItem prop="password">
-                  <!-- <i-input type="password" v-model="login_form.password" placeholder="密码">
-                      <Icon type="ios-lock" slot="prepend" style="width:20px; background:#ffffff" size="15"></Icon>
-                  </i-input> -->
                   <i-input type="password" prefix="ios-lock" placeholder="密码" class="login_password" style="width: 283px" v-model="login_form.password"/>
-
               </FormItem>
               <FormItem>
                   <Button type="primary" @click="handleSubmit('login_form')" class="login_button">登录</Button>
@@ -60,16 +54,20 @@
   </Row>
 </template>
 <script>
+// import crypto from 'crypto';
+// const md5 = crypto.createHash('md5');
+import { mapGetters,mapActions} from 'vuex';
 export default {
   data () {
     return {
       login_form: {
-          user    : '',
+          email   : '',
           password: ''
       },
       ruleInline: {
-          user: [
-              { required: true, message: '请输入你的账号 ！', trigger: 'blur'}
+          email: [
+              { required: true, message: '请输入你的账号 ！', trigger: 'blur' },
+              { type: 'email', message: '不正确的邮箱格式！', trigger: 'blur' }
           ],
           password: [
               { required: true, message: '请输入你的密码！', trigger: 'blur' },
@@ -79,29 +77,87 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['changeLoginStatusAction','changeUserInfoAction']),
     handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
+        if(!this.$cookie.get('nickname')){
+          this.$refs[name].validate((valid) => {
             if (valid) {
-                this.$Message.success('Success!');
+                this.axios({
+                  url   : 'http://47.98.224.37:8080/api/v1/users/login',
+                  method: 'POST',
+                  data  : {
+                    email   : this.login_form.email,
+                    password: this.login_form.password,
+                  },
+                  transformRequest:[
+                    function(data){
+                      let ret = "";
+                      for(let it in data){
+                        ret += encodeURIComponent(it)+"="+encodeURIComponent(data[it])+"&";
+                      }
+                      return ret;
+                    }
+                  ],
+                  headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+                }).then(res=>{
+                  if(res.data.status==200){
+                    this.$Message.success(res.data.message);
+                    this.$router.push({path:'/profile',query:{id:res.data.data.id}});
+                    // this.$cookie.set('email',this.login_form.email,7);
+                    // this.$cookie.set('password',this.login_form.password,7);
+                    this.$cookie.set('nickname',res.data.data.nickname,7);
+
+                    this.$cookie.set('JSESSIONID', {expires: 7, domain: '47.98.224.37'});
+
+                    this.$store.dispatch('changeLoginStatusAction',null);
+                    // this.axios({
+                    //     url   : 'http://47.98.224.37:8080/api/v1/users/personal',
+                    //     method: 'get',
+                    //     params: {
+                    //         id: 28,
+                    //     },
+                    // }).then(res=>{
+                    //   this.$store.dispatch('changeUserInfoAction',res.data.data);
+                    // })
+                  }else{
+                    this.$Message.error(res.data.message);
+                    this.$cookie.delete('nickname');
+                  }
+                })
+                
             } else {
-                this.$Message.error('Fail!');
+                this.$Message.error('登录失败!');
             }
-        })
+          })
+        }else{
+          this.$Message.error('已登录，无需重新登录！');
+        }
+        
     }
   },
-  beforeRouteLeave (to, from, next) {
-    this.$Modal.info({
-        title  : '提示框',
-        content: '<br/><p style="font-size:18px; ">你确认要离开该登录页吗？</p>',
-        onOk   : () => {
-            this.$Message.info('Clicked ok');
-            next();
-        },
-        onCancel: () => {
-            this.$Message.info('Clicked cancel');
-        }
-    });
+  computed:{
+    ...mapGetters(['getLoginStatus','getUserInfo']),
+  },
+  // beforeRouteLeave (to, from, next) {
+  //   this.$Modal.info({
+  //       title  : '提示框',
+  //       content: '<br/><p style="font-size:18px; ">你确认要离开该登录页吗？</p>',
+  //       onOk   : () => {
+  //           this.$Message.info('操作成功！');
+  //           next();
+  //       },
+  //       onCancel: () => {
+  //           this.$Message.info('操作取消！');
+  //       }
+  //   });
+  // },
+  mounted(){
+    
   }
+ 
+ 
 }
 </script>
 <style lang="scss" scoped>
@@ -129,22 +185,21 @@ export default {
   }
   .login_logo_inner{
     @include circleBox(95px, 0.39);
-    margin: 0 auto;
+    margin     : 0 auto;
+    padding-top: 7px;
   }
   .project_name{
     margin-top: 20px;
     h1{
-      width         : 100px;
       height        : 34px;
+      text-align    : center;
       font-size     : 32px;
       font-weight   : normal;
       font-stretch  : normal;
       line-height   : 30px;
       letter-spacing: 0px;
-      color         : #062f41;
-      box-shadow    : 0px 2px 2px 0px
-      rgba(251, 236, 190, 0.75);
-      margin: 0 auto;
+      color         : #ff9d00;
+      margin        : 0 auto;
     }
   }
   .form_box{
@@ -229,4 +284,10 @@ export default {
 /deep/ .ivu-form-item-required {
   margin-bottom: 26px;
 }   
+.logo{
+  width  : 100%;
+  height : auto;
+  display: block;
+  margin : 0 auto;
+}
 </style>
