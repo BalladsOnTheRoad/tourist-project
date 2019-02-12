@@ -5,7 +5,7 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              <img src="../../images/logo.png" alt="" class="logo">
+              <img src="../../images/logo.png" alt="" class="logo" @click="backHome">
             </div>
           </div>
 
@@ -75,21 +75,24 @@ export default {
                 this.$Message.error('Fail!');
             }
         })
-    }
+    },
+    backHome(){
+      this.$router.push('home');
+    } 
   },
-  beforeRouteLeave (to, from, next) {
-    this.$Modal.info({
-        title  : '提示框',
-        content: '<br/><p style="font-size:18px; ">你确认要离开该忘记密码页面吗？</p>',
-        onOk   : () => {
-            this.$Message.info('操作成功！');
-            next();
-        },
-        onCancel: () => {
-            this.$Message.info('操作取消！');
-        }
-    });
-  }
+  // beforeRouteLeave (to, from, next) {
+  //   this.$Modal.info({
+  //       title  : '提示框',
+  //       content: '<br/><p style="font-size:18px; ">你确认要离开该忘记密码页面吗？</p>',
+  //       onOk   : () => {
+  //           this.$Message.info('操作成功！');
+  //           next();
+  //       },
+  //       onCancel: () => {
+  //           this.$Message.info('操作取消！');
+  //       }
+  //   });
+  // }
 }
 </script>
 <style lang="scss" scoped>
@@ -119,6 +122,9 @@ export default {
     @include circleBox(95px, 0.39);
     margin     : 0 auto;
     padding-top: 7px;
+    img{
+      cursor: pointer;
+    }
   }
   .project_name{
     margin-top: 20px;

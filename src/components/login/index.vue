@@ -5,8 +5,7 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              <img src="../../images/logo.png" alt="" class="logo">
-              
+              <img src="../../images/logo.png" alt="" class="logo" @click="backHome">
             </div>
           </div>
 
@@ -78,6 +77,9 @@ export default {
   },
   methods: {
     ...mapActions(['changeLoginStatusAction','changeUserInfoAction']),
+    backHome(){
+      this.$router.push('home');
+    },
     handleSubmit(name) {
           this.$refs[name].validate((valid) => {
             if (valid) {
@@ -132,7 +134,8 @@ export default {
           })
           
         
-    }
+    },
+    
   },
   computed:{
     ...mapGetters(['getLoginStatus','getUserInfo']),
@@ -184,6 +187,9 @@ export default {
     @include circleBox(95px, 0.39);
     margin     : 0 auto;
     padding-top: 7px;
+    img{
+      cursor: pointer;
+    }
   }
   .project_name{
     margin-top: 20px;

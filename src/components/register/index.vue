@@ -5,7 +5,7 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              <img src="../../images/logo.png" alt="" class="logo">
+              <img src="../../images/logo.png" alt="" class="logo" @click="backHome">
             </div>
           </div>
 
@@ -140,6 +140,9 @@ export default {
                 this.$Message.error('注册失败！');
             }
         })
+    },
+    backHome(){
+      this.$router.push('home');
     } 
   },
   // beforeRouteLeave (to, from, next) {
@@ -193,6 +196,9 @@ export default {
     @include circleBox(95px, 0.39);
     margin     : 0 auto;
     padding-top: 7px;
+    img{
+      cursor: pointer;
+    }
   }
   .logo{
   width  : 100%;
