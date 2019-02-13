@@ -163,7 +163,6 @@ export default {
     },
     mounted(){
         this.editUserInfo = this.getUserInfo;
-        console.log(this.editUserInfo.photo);   
         if(this.editUserInfo.photo){
             this.formInline.userPhoto = this.editUserInfo.photo;
             this.formInline.user      = this.editUserInfo.nickname;
@@ -178,8 +177,11 @@ export default {
     },
     beforeMount(){
         this.axios({
-            url   : 'http://47.98.224.37:8080/api/v1/photo/getphoto',
-            method: 'get',
+            url    : 'http://47.98.224.37:8080/api/v1/photo/getphoto',
+            method : 'get',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         }).then(res=>{
             if(res.data.status==200){
                 this.userPhotoLists = res.data.data;

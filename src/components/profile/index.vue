@@ -43,6 +43,21 @@ export default {
         this.$store.dispatch('changeUEMStatusAction',false);
         this.$store.dispatch('changeWMStatusAction',false);
         next();
+    },
+    beforeMount(){
+        if(!this.$cookie.get('nickname')){
+            this.$Modal.confirm({
+                title  : '提示框',
+                content: '<br/><p style="font-size:18px; ">尚未登录，是否跳转道登录页面？</p>',
+                onOk   : () => {
+                    this.$router.push({path:'/login'});
+                },
+                onCancel: () => {
+                    this.$Message.info('操作取消！');
+                    this.$router.go(-1);
+                }
+            });
+        }
     }
 }
 </script>

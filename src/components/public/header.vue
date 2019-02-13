@@ -287,16 +287,14 @@
             }
         },
         mounted() {
-            // console.log(this.navlist)
         },
         beforeMount(){
-            // console.log(this.getLoginStatus);
             if(this.$cookie.get('nickname')){
                 this.loginStatus = true;
+                this.userPhoto   = this.getUserInfo.photo;
             }else{
                 this.loginStatus = false;
             }
-            this.userPhoto = this.getUserInfo.photo;
         }
     }
 </script>

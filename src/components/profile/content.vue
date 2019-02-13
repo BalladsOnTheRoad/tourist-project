@@ -9,12 +9,10 @@
                     <div class="user_info">
                         <div class="user_img">
                             <img :src="userInfo.photo">
-                            <!-- <img src="http://47.98.224.37:8080/static/users/1/44d4d47d-01ba-4f3a-9f6b-49f514d1806b.jpg"> -->
                         </div>
                         <div class="user_info_con">
                             <div class="user_info_top">
                                 <div class="user_name top_list">
-                                    <!-- <span>董小坏</span> -->
                                     <span>{{userInfo.nickname}}</span>
                                 </div>
                                 <div class="user_vip top_list">
@@ -132,7 +130,10 @@ export default {
                 method: 'get',
                 params: {
                     id: userId,
-                }
+                },
+                // headers: {
+                //     'Content-Type': 'application/x-www-form-urlencoded'
+                // }
             }).then(res=>{
                 if(res.data.status==200){
                     this.userInfo = res.data.data;
@@ -154,6 +155,7 @@ export default {
     beforeMount(){
         var userId = location.href.split('?')[1].split('=')[1];
         this.getUserInfo(userId);
+        console.log(this.userInfo);
     }
 }
 </script>

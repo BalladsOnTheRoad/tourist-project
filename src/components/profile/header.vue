@@ -58,7 +58,8 @@
                     
 
                     <div class="userLogo">
-                        <a href="javascript:;" @click="logOut">退出登录</a>
+                        <a href="javascript:;" @click="logOut">退出登录&nbsp;/&nbsp;</a>
+                        <a href="javascript:;" @click="changePass">修改密码</a>
                     </div>
 
                 </div>
@@ -153,6 +154,7 @@
                             if(res.data.status==200){
                                 this.$Message.success('退出登录成功！');
                                 this.$cookie.delete('nickname');
+                                this.$cookie.delete('id');
                                 this.$router.push('home');
                             }else{
                                 this.$Message.error(res.data.message);
@@ -160,7 +162,21 @@
                         })
                     },
                     onCancel: () => {
-                        this.$Message.info('Clicked cancel');
+                        this.$Message.info('操作已取消。');
+                    }
+                });
+            },
+            changePass(){
+                // var userId = location.href.split('?')[1].split('=')[1];
+                this.$Modal.confirm({
+                    title  : '修改密码',
+                    content: "<h4>你确认要修改密码吗？</h4>",
+                    onOk   : () => {
+                        this.$router.push({path:'/changepass'});
+                        this.$Message.success('跳转成功！');
+                    },
+                    onCancel: () => {
+                        this.$Message.info('操作已取消。');
                     }
                 });
             }
@@ -264,7 +280,7 @@
         margin-right: 15px;
         padding-top : 15px;
         a{
-            display       : block;
+            display       : inline-block;
             font-size     : 24px;
             font-weight   : normal;
             font-stretch  : normal;

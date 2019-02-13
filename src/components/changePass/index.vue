@@ -17,15 +17,15 @@
 
 
           <div class="form_box">
-            <Form ref="login_form" :model="login_form" :rules="ruleInline">
-              <FormItem prop="email">
-                  <i-input type="text" prefix="md-person" placeholder="账号" class="login_email" style="width: 283px" v-model="login_form.email"/>
+            <Form ref="change_form" :model="change_form" :rules="ruleInline">
+              <FormItem prop="pwd">
+                  <i-input type="password" prefix="ios-lock-outline" placeholder="原始密码" style="width: 283px" v-model="change_form.pwd"/>
               </FormItem>
-              <FormItem prop="password">
-                  <i-input type="password" prefix="ios-lock" placeholder="密码" class="login_password" style="width: 283px" v-model="login_form.password"/>
+              <FormItem prop="cpwd">
+                  <i-input type="password" prefix="ios-lock" placeholder="确认密码"  style="width: 283px" v-model="change_form.cpwd"/>
               </FormItem>
               <FormItem>
-                  <Button type="primary" @click="handleSubmit('login_form')" class="login_button">登录</Button>
+                  <Button type="primary" @click="handleSubmit('change_form')" class="login_button">登录</Button>
               </FormItem>
             </Form>
 
@@ -56,19 +56,33 @@
 import { mapGetters,mapActions} from 'vuex';
 export default {
   data () {
+    const pwdValidate = (rule, value, callback) => {
+        this.$refs.change_form.validateField('cpwd');
+        callback();
+    };
+    const pwdCheckValidate = (rule, value, callback) => {
+        if (this.change_form.pwd != '' && value == '') {
+            callback(new Error('确认密码不能为空!'));
+        } else if (this.change_form.pwd != value) {
+            callback(new Error('新密码和确认密码应相同!'));
+            this.$Message.error('新密码与确认密码不同！');
+        } else {
+            callback();
+        }
+    }
     return {
-      login_form: {
-          email   : '',
-          password: ''
+      change_form: {
+          pwd : '',
+          cpwd: ''
       },
       ruleInline: {
-          email: [
-              { required: true, message: '请输入你的账号 ！', trigger: 'blur' },
-              { type: 'email', message: '不正确的邮箱格式！', trigger: 'blur' }
+          pwd: [
+              { required: true, validator: pwdValidate, trigger: 'blur' },
+              { type: 'string', min: 6,message: '密码长度不得少于6位！', trigger: 'blur' }
           ],
-          password: [
-              { required: true, message: '请输入你的密码！', trigger: 'blur' },
-              { type: 'string', min: 6, message: '密码长度不得少于6位 ！', trigger: 'blur' }
+          cpwd: [
+              { required: true, validator: pwdCheckValidate, trigger: 'blur' },
+              { type: 'string', min: 6, message: '密码长度不得少于6位 ！'}
           ]
       }
     }
@@ -82,11 +96,11 @@ export default {
           this.$refs[name].validate((valid) => {
             if (valid) {
                 this.axios({
-                  url   : 'http://47.98.224.37:8080/api/v1/users/login',
+                  url   : 'http://47.98.224.37:8080/api/v1/users/resetpassword',
                   method: 'POST',
                   data  : {
-                    email   : this.login_form.email,
-                    password: this.login_form.password,
+                    id      : this.$cookie.get('id'),
+                    password: this.change_form.pwd,
                   },
                   transformRequest:[
                     function(data){
@@ -102,30 +116,27 @@ export default {
                   }
                 }).then(res=>{
                   if(res.data.status==200){
-                    if(res.data.data.nickname!=this.$cookie.get('nickname')){
-                      this.$cookie.delete('nickname');
-                      this.$cookie.delete('id');
-                      this.$cookie.set('nickname',res.data.data.nickname);
-                      this.$cookie.set('id',res.data.data.id);
-                      this.$store.dispatch('changeLoginStatusAction',true);
-                      this.$Message.success(res.data.message);
-                      this.$router.push({path:'/profile',query:{id:res.data.data.id}});
-                    }else{
-                       this.$Modal.confirm({
-                        title  : '提示框',
-                        content: '<br/><p style="font-size:18px; ">已登录，是否跳转到个人简介页面？</p>',
-                        onOk   : () => {
-                          this.$router.push({path:'/profile',query:{id:res.data.data.id}});
-                        },
-                        onCancel: () => {
-                            this.$Message.info('操作取消！');
-                        }
-                      });
-                    }
+                    this.$Message.success(res.data.message);
+                    // if(res.data.data.nickname!=this.$cookie.get('nickname')){
+                    //   this.$cookie.delete('nickname');
+                    //   this.$cookie.set('nickname',res.data.data.nickname);
+                    //   this.$store.dispatch('changeLoginStatusAction',true);
+                    //   this.$Message.success(res.data.message);
+                    //   this.$router.push({path:'/profile',query:{id:res.data.data.id}});
+                    // }else{
+                    //    this.$Modal.confirm({
+                    //     title  : '提示框',
+                    //     content: '<br/><p style="font-size:18px; ">已登录，是否跳转到个人简介页面？</p>',
+                    //     onOk   : () => {
+                    //       this.$router.push({path:'/profile',query:{id:res.data.data.id}});
+                    //     },
+                    //     onCancel: () => {
+                    //         this.$Message.info('操作取消！');
+                    //     }
+                    //   });
+                    // }
                   }else{
                     this.$Message.error(res.data.message);
-                    this.$cookie.delete('nickname');
-                    this.$cookie.delete('id');
                   }
                 })
                 
@@ -141,24 +152,22 @@ export default {
   computed:{
     ...mapGetters(['getLoginStatus','getUserInfo']),
   },
-  // beforeRouteLeave (to, from, next) {
-  //   this.$Modal.info({
-  //       title  : '提示框',
-  //       content: '<br/><p style="font-size:18px; ">你确认要离开该登录页吗？</p>',
-  //       onOk   : () => {
-  //           this.$Message.info('操作成功！');
-  //           next();
-  //       },
-  //       onCancel: () => {
-  //           this.$Message.info('操作取消！');
-  //       }
-  //   });
-  // },
-  mounted(){
-    
+  beforeMount(){
+      if(!this.$cookie.get('id')){
+        this.$Modal.confirm({
+            title  : '提示框',
+            content: '<br/><p style="font-size:18px; ">尚未登录，是否进入登录界面</p>',
+            onOk   : () => {
+                this.$router.push({path:'/login'});
+                this.$Message.success('操作成功！');
+            },
+            onCancel: () => {
+                this.$Message.info('操作取消！');
+                this.$router.go(-1);
+            }
+        });
+      }
   }
- 
- 
 }
 </script>
 <style lang="scss" scoped>

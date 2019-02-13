@@ -45,11 +45,12 @@ export default {
                     this.user_travel_items = res.data.data.entity;
                     this.total_size        = res.data.data.pageSize*res.data.data.totalPage;
                 }else if(res.data.status==401){
-                    this.$Message.error('登录已失效，请重新登录！');
+                    this.$Message.error('尚未登录，请重新登录！');
                     this.$cookie.delete('nickname');
+                    this.$cookie.delete('id');
                     this.$Modal.confirm({
                         title  : '登录框',
-                        content: "<h4>登录失效，你确认要进入登录页面吗？</h4>",
+                        content: "<h4>尚未登录，你确认要进入登录页面吗？</h4>",
                         onOk   : () => {
                             this.$router.push('login');
                             this.$Message.success('登录页跳转成功！');
@@ -72,23 +73,27 @@ export default {
             params: {
                 page    : 1,
                 pageSize: 4,
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(res=>{
             if(res.data.status==200){
                 this.user_travel_items = res.data.data.entity;
                 this.total_size        = res.data.data.pageSize*res.data.data.totalPage;
             }else if(res.data.status==401){
-                this.$Message.error('登录已失效，请重新登录！');
                 this.$cookie.delete('nickname');
+                this.$cookie.delete('id');
                  this.$Modal.confirm({
                     title  : '登录框',
-                    content: "<h4>登录失效，你确认要进入登录页面吗？</h4>",
+                    content: "<h4>尚未登录，你确认要进入登录页面吗？</h4>",
                     onOk   : () => {
                         this.$router.push('login');
                         this.$Message.success('登录页跳转成功！');
                     },
                     onCancel: () => {
-                        this.$Message.info('登录页跳失败！');
+                        this.$Message.info('登录页跳取消！');
+                        this.$Message.push('home');
                     }
                 });
             }

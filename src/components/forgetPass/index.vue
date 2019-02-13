@@ -23,10 +23,10 @@
               </FormItem>
               <FormItem prop="verification">
                   <i-input type="text" prefix="ios-lock" placeholder="输入验证码"  style="width: 185px" v-model="forget_form.verification"/>
-                  <Button class="get_verifycation" >获取验证码</Button>
+                  <Button class="get_verifycation" @click="getCode">获取验证码</Button>
               </FormItem>
               <FormItem>
-                  <Button type="primary" @click="handleSubmit('forget_form')" class="forget_button">确定</Button>
+                  <Button type="primary"  class="forget_button" @click="submitForm('forget_form')">确定</Button>
               </FormItem>
             </Form>
 
@@ -67,18 +67,69 @@ export default {
     }
   },
   methods: {
-    handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
-            if (valid) {
-                this.$Message.success('Success!');
-            } else {
-                this.$Message.error('Fail!');
-            }
+    getCode() {
+      if(this.forget_form.email){
+        this.axios({
+          url   : 'http://47.98.224.37:8080/api/v1/users/forgetpassword',
+          method: 'get',
+          params: {
+            email: this.forget_form.email
+          }
+        }).then(res=>{
+          if(res.data.status==200){
+            this.$Message.success(res.data.message);
+          }else{
+            this.$Message.error(res.data.message);
+          }
         })
+      }else{
+        this.$Message.error('请输入你的邮箱');
+      }
+        // this.$refs[name].validate((valid) => {
+        //     if (valid) {
+        //         this.$Message.success('Success!');
+        //         this.axios({
+        //           url:'http://47.98.224.37:8080/api/v1/users/forgetpassword',
+        //           method:'get',
+        //           params:{
+        //             email:this.forget_form.email
+        //           }
+        //         }).then(res=>{
+        //           if(res.data.status==200){
+        //             this.$Message.success(res.data.message);
+
+        //           }
+        //         })
+        //     } else {
+        //         this.$Message.error('Fail!');
+        //     }
+        // })
+    },
+    submitForm(name){
+      this.$refs[name].validate((valid) => {
+          if (valid) {
+              this.axios({
+                url   : 'http://47.98.224.37:8080/api/v1/users/checkcode',
+                method: 'post',
+                data  : {
+                  code: this.forget_form.verification
+                }
+              }).then(res=>{
+                if(res.data.status==200){
+                  this.$Message.success(res.data.message);
+                  this.$router.push('changepass');
+                }else{
+                  this.$Message.error(res.data.message);
+                }
+              })
+          } else {
+              this.$Message.error('输入有误，请重新输入！');
+          }
+      })
     },
     backHome(){
       this.$router.push('home');
-    } 
+    },
   },
   // beforeRouteLeave (to, from, next) {
   //   this.$Modal.info({
