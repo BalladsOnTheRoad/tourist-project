@@ -104,7 +104,6 @@ export default {
                 method: 'get'
             }).then(res=>{
                 this.listqs = res.data.data.entity;
-                console.log(res.data.data.entity)
             })
         },
         getlist(){

@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="scss" scoped>
   *{
     margin    : 0;
     padding   : 0;
@@ -78,7 +78,7 @@
   .introduce{
     margin-top: 60px;
     float     : right;
-    background: url('../../../切图/目的地/bg1.png') no-repeat center;
+    background: url('../../../images/bg1.png') no-repeat center;
     width     : 790px;
     height    : 200px;
   }
@@ -123,7 +123,7 @@
   .topStyle{
     width      : 30px;
     height     : 40px;
-    background : url('../../../切图/目的地/top.png');
+    background : url('../../../images/top.png');
     font-size  : 18px;
     color      : #ffffff;
     text-align : center;
@@ -190,7 +190,7 @@
   .illustration .bigImg{
     width          : 1200px;
     height         : 280px;
-    background     : url('../../../切图/目的地/titlebg.png') no-repeat;
+    background     : url('../../../images/titlebg.png') no-repeat;
     background-size: 100% 100%;
   }
   .shopIntroduce{

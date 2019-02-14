@@ -1,25 +1,25 @@
-<style lang="less" scoped>
+<style lang="scss" scoped>
   *{
-    margin: 0;
-    padding: 0;
+    margin    : 0;
+    padding   : 0;
     list-style: none;
   }
   .content{
-    width: 1200px;
+    width : 1200px;
     margin: 0 auto;
   }
   // 导航
   .hotDest{
-    text-align: center;
-    font-size: 36px;
-    color: #333333;
-    line-height: 25px;
+    text-align   : center;
+    font-size    : 36px;
+    color        : #333333;
+    line-height  : 25px;
     margin-bottom: 58px;
   }
   /deep/ .ivu-tabs-nav-scroll{
-    display: flex;
+    display        : flex;
     justify-content: center;
-    align-items: center;
+    align-items    : center;
   }
   /deep/ .ivu-tabs-bar{
     border: none;
@@ -34,24 +34,24 @@
     background-color: #ff9d00;
   }
   /deep/ .ivu-tabs-tab {
-    font-size: 24px;
+    font-size  : 24px;
     line-height: 25px;
     }
   // 二级菜单
   .tabSon{
     font-size: 20px;
-    color: #333333;
-    width: 500px ;
+    color    : #333333;
+    width    : 500px ;
     // border-bottom: dashed 1px #666666;
     float: left;
   }
   .hotTab{
     flex-wrap: wrap;
-    width: 100%;
+    width    : 100%;
   }
   .tabSonTitle{
     font-size: 20px;
-    color: #333333;
+    color    : #333333;
   }
   .tabSonTitle ul{
     float: left;
@@ -60,76 +60,76 @@
     margin-top: 32px;
   }
   .tabSon li{
-    float: left;
+    float       : left;
     margin-right: 30px;
   }
   .tabSon a{
     font-size: 18px;
-	  color: #333333;
+    color    : #333333;
   }
   .hotCity{
     float: right;
   }
   // 查看全部国家
   /* .allCountry{
-    width: 220px;
-    height: 80px;
-    font-size: 30px;
-    color: #ff9d00;
-    margin: 30px auto;
-    border: dashed 1px #ff9d00;
-    text-align: center;
+    width      : 220px;
+    height     : 80px;
+    font-size  : 30px;
+    color      : #ff9d00;
+    margin     : 30px auto;
+    border     : dashed 1px #ff9d00;
+    text-align : center;
     line-height: 80px;
-    cursor: pointer;
+    cursor     : pointer;
   } */
   // 城市推荐
   .recommendCity{
-    font-size: 36px;
+    font-size  : 36px;
     font-weight: normal;
-    color: #333333;
-    margin: 60px auto;
-    text-align: center;
+    color      : #333333;
+    margin     : 60px auto;
+    text-align : center;
   }
   .recommendCityList{
-    width: 230px;
-    height: 340px;
-    border: solid 1px #666666;
-    float: left;
+    width  : 230px;
+    height : 340px;
+    border : solid 1px #666666;
+    float  : left;
     padding: 8px;
   }
   .recommendCityList img{
-    width: 100%;
+    width : 100%;
     height: 125px;
   }
   .allCountryName{
-    font-size: 24px;
-    color: #333333;
-    text-align: center;
+    font-size  : 24px;
+    color      : #333333;
+    text-align : center;
     line-height: 27px;
-    margin-top: 20px;
+    margin-top : 20px;
   }
   .allCountryText{
-    padding: 5px;
-    font-size: 14px;
-    line-height: 21px;
-    margin: 20px auto;
-    word-break: break-all;
-    text-overflow: ellipsis;
-    display: -webkit-box;
+    padding           : 5px;
+    font-size         : 14px;
+    line-height       : 21px;
+    margin            : 20px auto;
+    word-break        : break-all;
+    text-overflow     : ellipsis;
+    display           : -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
-    overflow: hidden;
+    overflow          : hidden;
   }
   .details{
     color: #333333;
   }
   // 全球目的地
   .allDestTitle{
-    margin-top: 60px;
-    text-align: center;
-    font-size: 30px;
+    margin-top : 60px;
+    text-align : center;
+    font-size  : 30px;
     line-height: 27px;
-    color: #333333;
+    color      : #333333;
   }
   /deep/ .ivu-tabs-bar{
     margin: 60px auto;
@@ -139,21 +139,21 @@
   }
 
   .allDest a{
-    font-size: 14px;
+    font-size  : 14px;
     line-height: 25px;
-    color: #333333;
+    color      : #333333;
   }
   .allDestList{
-    float: left;
-    width: 287px;
-    height: 369px;
-    display: flex;
-    flex-direction: column-reverse;
+    float          : left;
+    width          : 287px;
+    height         : 369px;
+    display        : flex;
+    flex-direction : column-reverse;
     justify-content: space-between;
-    align-items: center;
+    align-items    : center;
   }
   /deep/ .ivu-tabs-tabpane{
-    display: flex;
+    display        : flex;
     justify-content: space-between;
   }
 </style>
@@ -459,13 +459,12 @@
             </ul>
           </div>
         </Tab-pane>
-        </Tab-pane>
     </Tabs>
     <!-- <div class="allCountry">查看全部国家</div> -->
     <p class="recommendCity">城市推荐</p>
     <div style="display: flex;justify-content: space-between;">
       <div class="recommendCityList">
-        <img src="../../../img/hz.jpg" alt="" srcset="">
+        <!-- <img src="../../../img/hz.jpg" alt="" srcset=""> -->
         <div class="allCountryName"> {{ hangzhou }} </div>
         <div class="allCountryText">
           <router-link to="./dest/destCity" class="details">杭州人文古迹众多，西湖及其周边有大量的自然及人文景观遗迹，具代表性的有西湖文化、良渚文化、丝绸文化、茶文化，以及流传下来的许多故事传说成为杭州文化代表。</router-link>
@@ -473,7 +472,7 @@
       </div>
       <div class="recommendCityList">
         <div>
-        <img src="../../../img/wh.jpg" alt="" srcset="">
+        <!-- <img src="../../../img/wh.jpg" alt="" srcset=""> -->
         <div class="allCountryName"> {{ wuhan }} </div>
         <div class="allCountryText">
           <router-link to="./dest/destCity" class="details">武汉是国家历史文化名城和首批中国优秀旅游城市，每年举办武汉国际旅游节。武汉自然风光独特，四季气候分明，拥有其他大都市罕有的166个湖泊和众多山峦。武汉的人文景观具有浓郁的楚文化特色。</router-link>
@@ -482,7 +481,7 @@
       </div>
       <div class="recommendCityList">
         <div>
-        <img src="../../../img/sh.jpg" alt="" srcset="">
+        <!-- <img src="../../../img/sh.jpg" alt="" srcset=""> -->
         <div class="allCountryName"> {{ shanghai }} </div>
         <div class="allCountryText">
           <router-link to="./dest/destCity" class="details">上海拥有世界各国的饮食文化、经典时尚的购物和浓郁商业气息。西餐汇聚世界各地30多个国家的风味。中餐汇聚中国几乎所有地方风味，著名的有老城隍庙、云南路、黄河路、仙霞路等饮食文化区</router-link>
@@ -491,7 +490,7 @@
       </div>
       <div class="recommendCityList">
         <div>
-        <img src="../../../img/km.jpg" alt="" srcset="">
+        <!-- <img src="../../../img/km.jpg" alt="" srcset=""> -->
         <div class="allCountryName"> {{ kunming }} </div>
         <div class="allCountryText">
           <router-link to="./dest/destCity" class="details">昆明享“春城”之美誉，中国面向东南亚、南亚开放的门户城市，国家历史文化名城。是中国重要的旅游、商贸城市，西部地区重要的中心城市之一。</router-link>
@@ -790,61 +789,61 @@
 export default {
   data(){
     return{
-      kunming:'',
-      hangzhou:'',
-      nanjing:'',
-      shanghai:'',
-      tianjin:'',
-      wuhan:'',
+      kunming : '',
+      hangzhou: '',
+      nanjing : '',
+      shanghai: '',
+      tianjin : '',
+      wuhan   : '',
     }
   },
   methods:{
     km(){
       this.axios({
-        url:`http://47.98.224.37:8080/api/v1/areas/1?parentId=26&id=372`,
-        method:'get'
+        url   : `http://47.98.224.37:8080/api/v1/areas/1?parentId=26&id=372`,
+        method: 'get'
       }).then(result => {
-        this.kunming=result.data.data[0].name;
+        this.kunming = result.data.data[0].name;
       })
     },
     hz(){
       this.axios({
-        url:`http://47.98.224.37:8080/api/v1/areas/1?parentId=12&id=388`,
-        method:'get'
+        url   : `http://47.98.224.37:8080/api/v1/areas/1?parentId=12&id=388`,
+        method: 'get'
       }).then(result => {
-        this.hangzhou=result.data.data[0].name;
+        this.hangzhou = result.data.data[0].name;
       })
     },
     nj(){
       this.axios({
-        url:`http://47.98.224.37:8080/api/v1/areas/1?parentId=11&id=210`,
-        method:'get'
+        url   : `http://47.98.224.37:8080/api/v1/areas/1?parentId=11&id=210`,
+        method: 'get'
       }).then(result => {
-        this.nanjing=result.data.data[0].name;
+        this.nanjing = result.data.data[0].name;
       })
     },
     sh(){
       this.axios({
-        url:`http://47.98.224.37:8080/api/v1/areas/1?parentId=10&id=299`,
-        method:'get'
+        url   : `http://47.98.224.37:8080/api/v1/areas/1?parentId=10&id=299`,
+        method: 'get'
       }).then(result => {
-        this.shanghai=result.data.data[0].name;
+        this.shanghai = result.data.data[0].name;
       })
     },
     tj(){
       this.axios({
-        url:`http://47.98.224.37:8080/api/v1/areas/1?parentId=3&id=342`,
-        method:'get'
+        url   : `http://47.98.224.37:8080/api/v1/areas/1?parentId=3&id=342`,
+        method: 'get'
       }).then(result => {
-        this.tianjin=result.data.data[0].name;
+        this.tianjin = result.data.data[0].name;
       })
     },
     wh(){
       this.axios({
-        url:`http://47.98.224.37:8080/api/v1/areas/1?parentId=18&id=179`,
-        method:'get'
+        url   : `http://47.98.224.37:8080/api/v1/areas/1?parentId=18&id=179`,
+        method: 'get'
       }).then(result => {
-        this.wuhan=result.data.data[0].name;
+        this.wuhan = result.data.data[0].name;
       })
     },
   },

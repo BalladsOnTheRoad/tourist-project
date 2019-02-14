@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="scss" scoped>
 * {
   margin    : 0;
   padding   : 0;
@@ -68,7 +68,7 @@
 .travelNote {
   width     : 1200px;
   height    : 300px;
-  background: url("../../../../切图/目的地/bg5.png");
+  background: url("../../../../images/bg5.png");
   margin-top: 112px;
   padding   : 20px;
 }
@@ -148,7 +148,7 @@
   background-size: contain;
 }
 .travelNote1 {
-  background: url("../../../../切图/目的地/bg4.png");
+  background: url("../../../../images/bg4.png");
 }
 .travelNote1 .left {
   float: right;
