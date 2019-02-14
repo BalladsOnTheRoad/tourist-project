@@ -20,7 +20,6 @@ export default {
     },
     props: ['data_item','kind'],
     beforeMount(){
-        // http://localhost:8080/#/strategy_details?id=28
         if(this.kind=='travel'){
             this.linkAddress = '/';
         }else if(this.kind=='strategy'){

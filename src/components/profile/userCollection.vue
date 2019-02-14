@@ -16,32 +16,38 @@
             </div> -->
             <Tabs value="name1">
                 <TabPane label="游记" name="name1">
-                    <div class="travel_box">
-                        <div v-if="travelStatus">
-                            <div v-for="(travelList, index) in travelLists" :key="index">
-                                <public-list :data_item="travelList" kind="travel"></public-list>
+                    <div class="travel_box contain_box">
+                        <div class="contain_inner">
+                            <div v-if="travelStatus">
+                                <div v-for="(travelList, index) in travelLists" :key="index">
+                                    <public-list :data_item="travelList" kind="travel"></public-list>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="nonCon">
+                                    <router-link to="/">你还未收藏过一篇游记，快去查看更多有趣游记吧>></router-link>
+                                </div>
                             </div>
                         </div>
-                        <div v-else>
-                            <div class="nonCon">
-                                <router-link to="/">你还未收藏过一篇游记，快去查看更多有趣游记吧>></router-link>
-                            </div>
-                        </div>
+                        
                         <!-- <public-list></public-list> -->
                     </div>
                 </TabPane>
                 <TabPane label="攻略" name="name2">
-                    <div class="strategy_box">
-                        <div v-if="strategyStatus">
-                            <div v-for="(strategyList, index) in strategyLists" :key="index">
-                                <public-list :data_item="strategyList" kind="strategy"></public-list>
+                    <div class="strategy_box contain_box">
+                        <div class="contain_inner">
+                            <div v-if="strategyStatus">
+                                <div v-for="(strategyList, index) in strategyLists" :key="index">
+                                    <public-list :data_item="strategyList" kind="strategy"></public-list>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="nonCon">
+                                    <router-link to="/strategy">你还未收藏过一篇攻略，快去查看更多有趣攻略吧>></router-link>
+                                </div>
                             </div>
                         </div>
-                        <div v-else>
-                            <div class="nonCon">
-                                <router-link to="/strategy">你还未收藏过一篇攻略，快去查看更多有趣攻略吧>></router-link>
-                            </div>
-                        </div>
+                        
                     </div>
                 </TabPane>
             </Tabs>
@@ -166,5 +172,12 @@ export default {
                 color: #ff9d00;
             }
         }
+    }
+    .contain_box{
+        height: 1080px;
+    }
+    .contain_inner{
+        height    : 100%;
+        overflow-y: auto;
     }
 </style>

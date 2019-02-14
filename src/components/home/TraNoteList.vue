@@ -49,35 +49,184 @@
                 <div class="node_user_options">
                     <ul>
                         <li>
-                            <router-link to="/">
+                            <a href="javascript:;" @click="collectTravel(hot_tra_note.id)">
                                 <img src="../../images/collect.png" alt="">
                                 <span>{{hot_tra_note.collectnum}}</span>
-                            </router-link>
+                            </a>
                         </li>
                         <li>
-                            <router-link to="/">
+                            <a href="javascript:;" @click="praiseTravel(hot_tra_note.id)">
                                 <img src="../../images/like.png" alt="">
                                 <span>{{hot_tra_note.praisenum}}</span>
-                            </router-link>
+                            </a>
                         </li>
                         <li>
-                            <router-link to="/">
+                            <a href="javascript:;" @click="commentTravel(hot_tra_note.id)">
                                 <img src="../../images/comment.png" alt="">
                                 <span>{{hot_tra_note.clicknum}}</span>
-                            </router-link>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+
+        <Modal v-model="commentModalStatus" draggable scrollable title="请写下你的想法" :footer-hide="true" :width="800">
+            <div class="satisfy_box"> 
+                <div class="satisfy_label">
+                    <p>
+                        好评度：
+                    </p>
+                </div>
+
+                <InputNumber :max="5" :min="0" v-model="numberValue"></InputNumber>
+            </div>
+            <div class="commentCon_box">
+                <div class="commentCon_label">
+                    <p>
+                        评论内容：
+                    </p>
+                </div>
+                <div class="quill_box">
+                    <quill-editor v-model="commentData"></quill-editor>
+                </div>
+
+            </div>
+            
+            <!-- v-model="formData.text" -->
+            <Button type="primary" @click="submitComment" style="margin-left:300px;margin-top:10px">提交</Button>
+            <Button @click="cancel" style="margin-top:10px;margin-left:10px">取消</Button>
+        </Modal>
     </div>
 </template>
 <script>
 export default {
     props: ['hot_tra_note'],
+    data(){
+        return{
+            commentModalStatus: false,
+            commentData       : null,
+            numberValue       : 1,
+        }
+    },
     mounted(){
     },
     methods:{
+        collectTravel(id){
+            if(this.$cookie.get('nickname')){
+                this.axios({
+                    url   : `http://47.98.224.37:8080/api/v1/users/collect/travels/${this.hot_tra_note.id}`,
+                    method: 'get'
+                }).then(res=>{
+                    if(res.data.status==200){
+                        if(res.data.message=='收藏成功'){
+                            this.$Message.success(res.data.message);
+                            this.hot_tra_note.collectnum += 1;
+                        }else{
+                            this.$Message.success(res.data.message);
+                            this.hot_tra_note.collectnum -= 1;
+                        }
+                    }else{
+                        this.$Message.error(res.data.message);
+                    }
+
+                })
+            }else{
+                this.$Modal.confirm({
+                    title  : '提示框',
+                    content: '<br/><p style="font-size:18px; ">尚未登录，是否跳转到登录页面？</p>',
+                    onOk   : () => {
+                        this.$router.push({path:'/login'});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('操作取消！');
+                    }
+                });
+            }
+        },
+        praiseTravel(id){
+            if(this.$cookie.get('nickname')){
+                this.axios({
+                    url   : `http://47.98.224.37:8080/api/v1/users/praise/travels/${this.hot_tra_note.id}`,
+                    method: 'get'
+                }).then(res=>{
+                    if(res.data.status==200){
+                        if(res.data.message=='点赞成功'){
+                            this.$Message.success(res.data.message);
+                            this.hot_tra_note.praisenum += 1;
+                        }else{
+                            this.$Message.success(res.data.message);
+                            this.hot_tra_note.praisenum -= 1;
+                        }
+                    }else{
+                        this.$Message.error(res.data.message);
+                    }
+
+                })
+            }else{
+                this.$Modal.confirm({
+                    title  : '提示框',
+                    content: '<br/><p style="font-size:18px; ">尚未登录，是否跳转到登录页面？</p>',
+                    onOk   : () => {
+                        this.$router.push({path:'/login'});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('操作取消！');
+                    }
+                });
+            }
+        },
+        commentTravel(id){
+            if(this.$cookie.get('nickname')){
+                this.commentModalStatus = true;
+            }else{
+                this.$Modal.confirm({
+                    title  : '提示框',
+                    content: '<br/><p style="font-size:18px; ">尚未登录，是否跳转到登录页面？</p>',
+                    onOk   : () => {
+                        this.$router.push({path:'/login'});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('操作取消！');
+                    }
+                });
+            }
+        },
+        submitComment(){
+            this.axios({
+                url   : `http://47.98.224.37:8080/api/v1/comments/strategies/${this.hot_tra_note.id}`,
+                method: 'post',
+                data  : {
+                        strategy_id: this.hot_tra_note.id,
+                        content    : this.commentData,
+                        satisfy    : this.numberValue
+                },
+                transformRequest:[
+                    function(data){
+                      let ret = "";
+                      for(let it in data){
+                        ret += encodeURIComponent(it)+"="+encodeURIComponent(data[it])+"&";
+                      }
+                      return ret;
+                    }
+                  ],
+                  headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+            }).then(res=>{
+                if(res.data.status==200){
+                    this.$Message.success(res.data.message);
+                    this.hot_tra_note.clicknum += 1;
+                    this.commentModalStatus     = false;
+                }else{
+                    this.$Message.error(res.data.message);
+                }
+            })
+        },
+        cancel(){
+            this.commentModalStatus = false;
+            this.$Message.info('操作取消！');
+        }
     }
 }
 </script>
@@ -202,5 +351,35 @@ export default {
                 color    : #ff9d00;
             }
         }
+    }
+
+
+
+
+
+
+
+    .satisfy_box{
+        margin-bottom: 20px;
+    }
+    .satisfy_label{
+        float         : left;
+        height        : 32px;
+        vertical-align: middle;
+        p{
+            height     : 100%;
+            line-height: 32px;
+            width      : 150px;
+            font-size  : 16px;
+        }
+    }
+    .commentCon_label{
+        margin-bottom: 20px;
+        p{
+            font-size: 16px;
+        }
+    }
+    .quill_box{
+        margin-top: 20px;
     }
 </style>

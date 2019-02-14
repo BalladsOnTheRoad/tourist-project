@@ -1,8 +1,29 @@
 <template>
     <div>
         <Modal v-model="modal12" draggable scrollable title="请写下你的想法" :footer-hide="true" :width="800">
-            <quill-editor v-model="formData.text"></quill-editor>
-            <Button type="primary" @click="Submit" style="margin-left:300px;margin-top:10px">提交</Button>
+            <div class="satisfy_box"> 
+                <div class="satisfy_label">
+                    <p>
+                        好评度：
+                    </p>
+                </div>
+
+                <InputNumber :max="5" :min="0" v-model="numberValue"></InputNumber>
+            </div>
+            <div class="commentCon_box">
+                <div class="commentCon_label">
+                    <p>
+                        评论内容：
+                    </p>
+                </div>
+                <div class="quill_box">
+                    <quill-editor v-model="commentData"></quill-editor>
+                </div>
+
+            </div>
+            
+            <!-- v-model="formData.text" -->
+            <Button type="primary" @click="submitComment" style="margin-left:300px;margin-top:10px">提交</Button>
             <Button @click="cancel" style="margin-top:10px;margin-left:10px">取消</Button>
         </Modal>
         <div class="details_main">
@@ -74,7 +95,9 @@ export default {
     },
     data(){
         return {
-            formData:{
+            commentData: null,
+            numberValue: 1,
+            formData   : {
                 text       : '',
                 title      : '',
                 image      : '',
@@ -105,7 +128,19 @@ export default {
             }).then(res=>{
                 this.data     = res.data.data;
                 this.formData = res.data.data;
-                console.log(this.formData.id);
+                if(!this.formData){
+                    this.$Modal.info({
+                    title  : '提示框',
+                    content: '<br/><p style="font-size:18px; ">该攻略已被删除，请选择其他攻略</p>',
+                    onOk   : () => {
+                        this.$router.push({path:'/profile',query:{id:this.$cookie.get('id')}});
+                    },
+                    // onCancel: () => {
+                    //     this.$Message.info('操作取消！');
+                    //     this.$router.push('home');
+                    // }
+                });
+                }
             })
         },
         focus(){
@@ -157,30 +192,42 @@ export default {
                 });
             }
         },
-        Submit(){
+        submitComment(){
             this.axios({
                 url   : `http://47.98.224.37:8080/api/v1/comments/strategies/${this.formData.id}`,
                 method: 'post',
                 data  : {
-                    strategy_id: this.formData.id,
-                    content    : this.formData.text,
-                    satisfy    : 5
+                        strategy_id: this.formData.id,
+                        content    : this.commentData,
+                        satisfy    : this.numberValue
+                    },
+                    transformRequest:[
+                    function(data){
+                      let ret = "";
+                      for(let it in data){
+                        ret += encodeURIComponent(it)+"="+encodeURIComponent(data[it])+"&";
+                      }
+                      return ret;
                     }
+                  ],
+                  headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                  }
             }).then(res=>{
-                //console.log(res);
-                ++this.formData.clicknum;
-
+                if(res.data.status==200){
+                    this.$Message.success(res.data.message);
+                    this.formData.clicknum += 1;
+                    this.modal12            = false;
+                }else{
+                    this.$Message.error(res.data.message);
+                }
             })
-            this.modal12 = false;
         },
         cancel(){
             this.modal12 = false;
             this.$Message.info('操作取消！');
         },
         collectStrategy(){
-            // this.axios({
-                
-            // })
             if(this.$cookie.get('nickname')){
                 this.axios({
                     url   : `http://47.98.224.37:8080/api/v1/users/collect/strategies/${this.formData.id}`,
@@ -211,7 +258,10 @@ export default {
             }
         }
     },
-    mounted(){
+    // mounted(){
+    //     this.getDetails()
+    // },
+    beforeMount(){
         this.getDetails()
     }
 
@@ -418,5 +468,28 @@ export default {
         }
     }
 }
+.satisfy_box{
+        margin-bottom: 20px;
+    }
+    .satisfy_label{
+        float         : left;
+        height        : 32px;
+        vertical-align: middle;
+        p{
+            height     : 100%;
+            line-height: 32px;
+            width      : 150px;
+            font-size  : 16px;
+        }
+    }
+    .commentCon_label{
+        margin-bottom: 20px;
+        p{
+            font-size: 16px;
+        }
+    }
+    .quill_box{
+        margin-top: 20px;
+    }
 
 </style>

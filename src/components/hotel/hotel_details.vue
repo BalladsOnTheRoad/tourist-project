@@ -242,12 +242,13 @@ export default {
         height: 45px;
         float : left;
         span{
-            display     : block;
-            width       : 33px;
-            height      : 33px;
-            float       : left;
-            background  : url(../../images/star.png) no-repeat;
-            margin-right: 3px;
+            display        : block;
+            width          : 33px;
+            height         : 33px;
+            float          : left;
+            background     : url(../../images/star.png) no-repeat;
+            background-size: 35px 35px;
+            margin-right   : 3px;
         }
 
     }

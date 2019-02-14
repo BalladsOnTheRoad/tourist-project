@@ -19,12 +19,12 @@
                 <div class="lb_title">
                     <div class="lb_title_left">
                         <p>
-                            <router-link to="/">{{hot_area_item.name}}</router-link>
+                            <router-link to="/dest">{{hot_area_item.name}}</router-link>
                         </p>
                     </div>
                     <div class="lb_title_right">
                         <div class="tr_list">
-                            <router-link to="/">攻略</router-link>
+                            <router-link to="/strategy">攻略</router-link>
                         </div>
                         <div class="tr_list" style="margin-left:14px;">
                             <router-link to="/">游记</router-link>
