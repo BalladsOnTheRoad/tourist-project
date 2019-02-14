@@ -60,12 +60,12 @@
                                 </div>
                             </li>
                             <li @mouseover="strNavShow" @mouseout="strNavHide">
-                                <router-link to="/" title="攻略">攻略</router-link>
+                                <router-link to="/strategy" title="攻略">攻略</router-link>
                                 <div class="strNav navDiv" v-if="strNavStatus">
                                     <ul>
-                                        <li><router-link to="/" title="热门攻略">热门攻略</router-link></li>
-                                        <li><router-link to="/" title="出门推荐">出门推荐</router-link></li>
-                                        <li><router-link to="/" title="周边热门">周边热门</router-link></li>
+                                        <li><router-link to="/strategy" title="热门攻略">热门攻略</router-link></li>
+                                        <li><router-link to="/strategy" title="出门推荐">出门推荐</router-link></li>
+                                        <li><router-link to="/strategy" title="周边热门">周边热门</router-link></li>
                                     </ul>
                                 </div>
                             </li>
@@ -79,11 +79,11 @@
                                 </div>
                             </li>
                             <li @mouseover="accNavShow" @mouseout="accNavHide">
-                                <router-link to="/" title="住宿">住宿</router-link>
+                                <router-link to="/hotel_lists" title="住宿">住宿</router-link>
                                 <div class="accNav navDiv" v-if="accNavStatus">
                                     <ul>
-                                        <li><router-link to="/" title="酒店">酒店</router-link></li>
-                                        <li><router-link to="/" title="民宿">民宿</router-link></li>
+                                        <li><router-link to="/hotel_lists" title="酒店">酒店</router-link></li>
+                                        <li><router-link to="/hotel_lists" title="民宿">民宿</router-link></li>
                                     </ul>
                                 </div>
                             </li>
@@ -99,7 +99,7 @@
                             <router-link to="login">登录&nbsp;/&nbsp;</router-link>
                         </p>
                         <p>
-                            <router-link to="register"> 第一次来</router-link>
+                            <router-link to="register"> 第一次来？</router-link>
                         </p>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
     
 </template>
 <script>
-    import { mapGetters, mapActions} from 'vuex'
+    import { mapGetters, mapActions} from 'vuex';
     export default {
         data () {
             return {

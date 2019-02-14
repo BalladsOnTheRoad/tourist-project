@@ -5,7 +5,7 @@
         </div>
         <div class="travel_lsits">
             <div v-for="(user_travel_item, index) in user_travel_items" :key="index">
-                <travel-list :user_travel_item="user_travel_item"></travel-list>  
+                <travel-list :data_item="user_travel_item" kind="travel"></travel-list>  
             </div>
             <Page :total="total_size" show-elevator :page-size="4" @on-change="changePage"/>          
         </div>

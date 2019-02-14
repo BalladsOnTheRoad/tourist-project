@@ -18,8 +18,7 @@
               <div class="hotDes_list">
                 <ul class="desList">
                   <div class="des_list_box" v-for="(hot_area_item, index) in hot_area_items" :key="index">
-                    <des-list :order="index" :hot_area_item="hot_area_item"></des-list>
-
+                    <des-list :order="index+1" :hot_area_item="hot_area_item"></des-list>
                   </div>
 
 

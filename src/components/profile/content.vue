@@ -155,7 +155,6 @@ export default {
     beforeMount(){
         var userId = location.href.split('?')[1].split('=')[1];
         this.getUserInfo(userId);
-        console.log(this.userInfo);
     }
 }
 </script>

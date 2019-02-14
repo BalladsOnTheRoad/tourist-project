@@ -1,5 +1,5 @@
 <template>
-    <div class="profile_header">
+    <div class="basic_header">
         
         <div class="header_wrapper">
             <div class="nav">
@@ -27,8 +27,8 @@
                             </li>
                             <li title="strategy" @mouseover="strNavShow" @mouseout="strNavHide">
                                 <router-link to="/strategy" title="攻略">攻略</router-link>
-                                <div class="strNav navDiv" v-if="strNavStatus">
-                                    <ul>
+                                <div class="strNav navDiv" v-show="strNavStatus">
+                                    <ul>    
                                         <li><router-link to="/strategy" title="热门攻略">热门攻略</router-link></li>
                                         <li><router-link to="/strategy" title="出门推荐">出门推荐</router-link></li>
                                         <li><router-link to="/strategy" title="周边热门">周边热门</router-link></li>
@@ -37,7 +37,7 @@
                             </li>
                             <li title="travel" @mouseover="traNavShow" @mouseout="traNavHide">
                                 <router-link to="/" title="游记">游记</router-link>
-                                <div class="traNav navDiv" v-if="traNavStatus">
+                                <div class="traNav navDiv" v-show="traNavStatus">
                                     <ul>
                                         <li><router-link to="/" title="路线">路线</router-link></li>
                                         <li><router-link to="/" title="地图">地图</router-link></li>
@@ -46,7 +46,7 @@
                             </li>
                             <li title="accommodation" @mouseover="accNavShow" @mouseout="accNavHide">
                                 <router-link to="/hotel_lists" title="住宿">住宿</router-link>
-                                <div class="accNav navDiv" v-if="accNavStatus">
+                                <div class="accNav navDiv" v-show="accNavStatus">
                                     <ul>
                                         <li><router-link to="/hotel_lists" title="酒店">酒店</router-link></li>
                                         <li><router-link to="/hotel_lists" title="民宿">民宿</router-link></li>
@@ -57,9 +57,16 @@
                     </div>
                     
 
-                    <div class="userLogo">
-                        <a href="javascript:;" @click="logOut">退出登录&nbsp;/&nbsp;</a>
-                        <a href="javascript:;" @click="changePass">修改密码</a>
+                    <div class="user_logo" v-if="loginStatus">
+                        <img :src="userPhoto" alt="用户头像" @click="user_profile">
+                    </div>
+                    <div class="user_login" v-else>
+                        <p>
+                            <router-link to="login">登录&nbsp;/&nbsp;</router-link>
+                        </p>
+                        <p>
+                            <router-link to="register"> 第一次来？</router-link>
+                        </p>
                     </div>
 
                 </div>
@@ -71,15 +78,19 @@
     
 </template>
 <script>
+    import { mapGetters, mapActions} from 'vuex';
     export default {
         data () {
             return {
-                value1        : 0,
-                homeNavStatus : false,
-                desNavStatus  : false,
-                strNavStatus  : false,
-                traNavStatus  : false,
-                accNavStatus  : false,
+                value1       : 0,
+                homeNavStatus: false,
+                desNavStatus : false,
+                strNavStatus : false,
+                traNavStatus : false,
+                accNavStatus : false,
+                loginStatus  : false,
+                userPhoto    : null,
+                
                 searchSelected: '全部',
                 swiperOption  : {
                     loop      : true,
@@ -99,7 +110,11 @@
                 }
             }
         },
+        computed:{
+            ...mapGetters(['getLoginStatus','getUserInfo']),
+        },
         methods:{
+            ...mapActions(['changeLoginStatusAction']),
             homeNavShow(eve){
                 this.homeNavStatus = true;
             },
@@ -179,16 +194,37 @@
                         this.$Message.info('操作已取消。');
                     }
                 });
+            },
+            user_profile(){
+                this.$Modal.confirm({
+                    title  : '提示框',
+                    content: '<br/><p style="font-size:18px; ">是否跳转到个人简介页面？</p>',
+                    onOk   : () => {
+                        var userId = this.getUserInfo.id;
+                        this.$router.push({path:'/profile',query:{id:userId}});
+                    },
+                    onCancel: () => {
+                        this.$Message.info('操作取消！');
+                    }
+                });
             }
         },
         mounted() {
         },
+        beforeMount(){
+            if(this.$cookie.get('nickname')){
+                this.loginStatus = true;
+                this.userPhoto   = this.getUserInfo.photo;
+            }else{
+                this.loginStatus = false;
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
 
     .nav{
-        overflow: hidden;
+        // overflow: hidden;
         width   : 100%;
         position: absolute;
         left    : 0;
@@ -219,7 +255,7 @@
         float: left;
     }
     .navList{
-        overflow  : hidden;
+        // overflow  : hidden;
         margin-top: 35px;
         li{
             list-style: none;
@@ -241,7 +277,23 @@
         }
         
     }
-    
+    .user_logo{
+        width           : 60px;
+        height          : 60px;
+        background-color: #ff9d00;
+        border          : solid 2px #ffffff;
+        border-radius   : 50%;
+        float           : right;
+        margin-top      : 45px;
+        margin-right    : 15px;
+        overflow        : hidden;
+        img{
+            display: block;
+            width  : 100%;
+            height : 100%;
+            cursor : pointer;
+        }
+    }
     .navDiv{
         width        : 100px;
         background   : #ffffff;
@@ -291,10 +343,23 @@
     }
 
 
-
+    .user_login{
+        float      : right;
+        padding-top: 45px;
+        margin-top : 15px;
+        p{
+            float: left;
+        }
+        a{
+            font-size: 24px;
+            color    : #ffffff;
+        }
+    }
     /*首页头部样式*/
-    .profile_header{
-        height    : 900px;
-        background: url('../../images/public_header01.jpg') no-repeat 0 0;
+    .basic_header{
+        height: 650px;
+        // height         : 100%;
+        background     : url('../../images/strategy_header_bg.png') no-repeat 0 0;
+        background-size: cover;
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div style="width:1200px; margin:0 auto;">
+    <div style="width:1200px; margin:0 auto;" class="basic_footer">
         <div class="footer_top">
             <div class="ft_wapper">
                 <div class="footer_logo">
@@ -41,16 +41,16 @@
                     <div class="footer_strList footer_navList">
                         <ul class="strList">
                             <h3>
-                                <router-link to="/">攻略</router-link>
+                                <router-link to="/strategy">攻略</router-link>
                             </h3>
                             <li>
-                                <router-link to="/">热门攻略</router-link>
+                                <router-link to="/strategy">热门攻略</router-link>
                             </li>
                             <li>
-                                <router-link to="/">出门推荐</router-link>
+                                <router-link to="/strategy">出门推荐</router-link>
                             </li>
                             <li>
-                                <router-link to="/">周边热门</router-link>
+                                <router-link to="/strategy">周边热门</router-link>
                             </li>
                         </ul>
                     </div>
@@ -70,13 +70,13 @@
                     <div class="footer_accList footer_navList">
                         <ul class="accList">
                             <h3>
-                                <router-link to="/">住宿</router-link>
+                                <router-link to="/hotel_lists">住宿</router-link>
                             </h3>
                             <li>
-                                <router-link to="/">酒店</router-link>
+                                <router-link to="/hotel_lists">酒店</router-link>
                             </li>
                             <li>
-                                <router-link to="/">民宿</router-link>
+                                <router-link to="/hotel_lists">民宿</router-link>
                             </li>
                         </ul>
                     </div>
@@ -199,5 +199,11 @@ export default {
             letter-spacing: 0px;
             color         : #e3e3e3;
         }
+    }
+
+
+    .basic_footer{
+        background-color: #0d0d0d;
+        opacity         : 0.96;
     }
 </style>

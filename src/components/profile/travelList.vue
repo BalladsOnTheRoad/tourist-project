@@ -1,19 +1,32 @@
 <template>
     <div class="travel_list">
         <div class="travel_title">
-            <h3>{{user_travel_item.title}}</h3>
+            <h3>{{data_item.title}}</h3>
         </div>
         <div class="travel_content">
             <div>
-                <p v-html="user_travel_item.describe"></p>
-                <span><router-link to="/">[详情]</router-link></span>
+                <p v-html="data_item.describe"></p>
+                <span><router-link :to="linkAddress">[详情]</router-link></span>
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    props: ['user_travel_item'],
+    data(){
+        return{
+            linkAddress: null,
+        }
+    },
+    props: ['data_item','kind'],
+    beforeMount(){
+        // http://localhost:8080/#/strategy_details?id=28
+        if(this.kind=='travel'){
+            this.linkAddress = '/';
+        }else if(this.kind=='strategy'){
+            this.linkAddress = `/strategy_details?id=${this.data_item.id}`;
+        }
+    }
 }
 </script>
 <style lang="scss">

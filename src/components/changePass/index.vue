@@ -19,13 +19,13 @@
           <div class="form_box">
             <Form ref="change_form" :model="change_form" :rules="ruleInline">
               <FormItem prop="pwd">
-                  <i-input type="password" prefix="ios-lock-outline" placeholder="原始密码" style="width: 283px" v-model="change_form.pwd"/>
+                  <i-input type="password" prefix="ios-lock-outline" placeholder="输入新密码" style="width: 283px" v-model="change_form.pwd"/>
               </FormItem>
               <FormItem prop="cpwd">
-                  <i-input type="password" prefix="ios-lock" placeholder="确认密码"  style="width: 283px" v-model="change_form.cpwd"/>
+                  <i-input type="password" prefix="ios-lock" placeholder="确认新密码"  style="width: 283px" v-model="change_form.cpwd"/>
               </FormItem>
               <FormItem>
-                  <Button type="primary" @click="handleSubmit('change_form')" class="login_button">登录</Button>
+                  <Button type="primary" @click="handleSubmit('change_form')" class="login_button">确定</Button>
               </FormItem>
             </Form>
 
@@ -33,9 +33,9 @@
 
             <div class="form_bottom">
               <p class="register">
-                <router-link to="/register">注册</router-link>
+                <router-link to="/home">首页</router-link>
                 </p>
-              <p class="forget_pass"><router-link to="/forgetpass">忘记密码？</router-link></p>
+              <p class="forget_pass"><router-link :to="'/profile?id='+userId">忘记密码？</router-link></p>
             </div>
 
 
@@ -44,9 +44,6 @@
               </a>
             </div>
           </div>
-
-
-          
           
         </i-col>
     </div>
@@ -71,6 +68,7 @@ export default {
         }
     }
     return {
+      userId     : null,
       change_form: {
           pwd : '',
           cpwd: ''
@@ -93,6 +91,7 @@ export default {
       this.$router.push('home');
     },
     handleSubmit(name) {
+      
           this.$refs[name].validate((valid) => {
             if (valid) {
                 this.axios({
@@ -117,6 +116,19 @@ export default {
                 }).then(res=>{
                   if(res.data.status==200){
                     this.$Message.success(res.data.message);
+                    this.$cookie.delete('nickname');
+                    this.$cookie.delete('id');
+                      this.$Modal.confirm({
+                        title  : '提示框',
+                        content: '<br/><p style="font-size:18px; ">修改密码成功，请重新登录？</p>',
+                        onOk   : () => {
+                          this.$router.push({path:'/login'});
+                        },
+                        onCancel: () => {
+                            this.$Message.info('操作取消！');
+                            this.$router.push('home');
+                        }
+                      });
                     // if(res.data.data.nickname!=this.$cookie.get('nickname')){
                     //   this.$cookie.delete('nickname');
                     //   this.$cookie.set('nickname',res.data.data.nickname);
@@ -153,6 +165,7 @@ export default {
     ...mapGetters(['getLoginStatus','getUserInfo']),
   },
   beforeMount(){
+    this.userId = this.$cookie.get('id');
       if(!this.$cookie.get('id')){
         this.$Modal.confirm({
             title  : '提示框',
