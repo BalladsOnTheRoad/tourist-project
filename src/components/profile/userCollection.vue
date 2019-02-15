@@ -116,13 +116,10 @@ export default {
     },
     methods:{
         travelCom(){
-            // console.log('travelCom');
             this.collectionStatus = true;
         },
         strategyCom(){
-            // console.log('strategyCom');
             this.collectionStatus = false;
-
         }
     },
     beforeMount(){

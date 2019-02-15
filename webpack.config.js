@@ -5,16 +5,17 @@ module.exports = {
   entry : './src/main.js',
   output: {
     path      : path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: '/dist/js',
     filename  : 'build.js'
   },
   module: {
     rules: [
+      
       {
         test: /\.css$/,
         use : [
           'vue-style-loader',
-          'css-loader'
+          'css-loader',
         ],
       },
       {
@@ -22,7 +23,7 @@ module.exports = {
         use : [
           'vue-style-loader',
           'css-loader',
-          'sass-loader'
+          'sass-loader',
         ],
       },
       {
@@ -30,7 +31,7 @@ module.exports = {
         use : [
           'vue-style-loader',
           'css-loader',
-          'sass-loader?indentedSyntax'
+          'sass-loader?indentedSyntax',
         ],
       },
       {
@@ -65,7 +66,7 @@ module.exports = {
         loader : 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
-        }
+        },
       },
       {
         test: /\.(eot|woff2|woff|ttf|svg)/,

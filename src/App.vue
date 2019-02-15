@@ -21,7 +21,6 @@ export default {
   methods:{
      reload () {
       this.isRouterAlive = false;
-      console.log('页面刷新!');
       this.$nextTick(function () {
         this.isRouterAlive = true;
       })

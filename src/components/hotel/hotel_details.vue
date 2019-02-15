@@ -177,14 +177,12 @@ export default {
                 url   : `http://47.98.224.37:8080/api/v1/hotels/${this.$route.query.id}`,
                 method: 'get'
             }).then(res=>{
-                // console.log(res.data.data);
                 this.data = res.data.data[0];
             })
         }
     },
     mounted(){
         this.getlist();
-        // console.log(this.data);
     }
 }
 </script>

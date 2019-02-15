@@ -436,7 +436,6 @@ export default {
     getCityInfo(){
       let _this = this;
       this.$http.get('http://47.98.224.37:8080/api/v1/shops/'+this.id).then(result =>{
-        console.log(result)
         if(result.data.status == '200'){
         }
       })

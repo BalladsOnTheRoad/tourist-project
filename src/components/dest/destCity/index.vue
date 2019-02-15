@@ -494,7 +494,6 @@ export default {
     getCityInfo(){
       let _this = this;
       this.$http.get('http://47.98.224.37:8080/api/v1/areas/1?parentId='+this.parentId).then(result =>{
-        // console.log(result)
         if(result.data.status == '200'){
            _this.cityInfo = result.data.data[0].name
         }
@@ -503,8 +502,6 @@ export default {
     getViewPoint(){
       let _this = this;
       this.$http.get('http://47.98.224.37:8080/api/v1/scenicspot/areas/'+this.id).then(result =>{
-        // console.log(result)
-        // console.log(result.data.data.entity)
         if(result.data.status == '200'){
           this.view      = result.data.data.entity;
           this.viewInfo1 = result.data.data.entity[0];
@@ -514,7 +511,6 @@ export default {
     getFoodInfo(){
       let _this = this;
       this.$http.get('http://47.98.224.37:8080/api/v1/foods/areas/'+this.id).then(result =>{
-        // console.log(result)
         if(result.data.status == '200'){
           this.food      = result.data.data.entity;
           this.foodInfo1 = result.data.data.entity[0];
@@ -524,8 +520,6 @@ export default {
     getShopInfo(){
       let _this = this;
       this.$http.get('http://47.98.224.37:8080/api/v1/shops/areas/'+this.id).then(result =>{
-        // console.log(result.data.data.entity[0].shop[0])
-        console.log(result.data.data.entity[1].shop)
         if(result.data.status == '200'){
           this.street    = result.data.data.entity[0].shop;
           this.market    = result.data.data.entity[1].shop;
@@ -536,7 +530,6 @@ export default {
     getTravelInfo(){
       let _this = this;
       this.$http.get('http://47.98.224.37:8080/api/v1/travels/areas/'+this.id).then(result =>{
-        // console.log(result.data.data.entity[0])
         if(result.data.status == '200'){
            _this.travelInfo = result.data.data.entity[0]
         }

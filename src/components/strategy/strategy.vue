@@ -202,7 +202,6 @@ import {swiper,swiperSlide} from 'vue-awesome-swiper'
         },
         methods:{
             getdetails(w){
-                console.log(w)
             },
             getHot(){
                 this.axios({

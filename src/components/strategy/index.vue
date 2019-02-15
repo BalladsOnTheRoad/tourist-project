@@ -16,7 +16,6 @@ export default {
     components:{
         'strategy-footer': StrategyFooter,
         'strategy-header': StrategyHeader
-
     }
 }
 </script>
