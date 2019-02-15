@@ -317,7 +317,9 @@
     opacity         : 0.96;
   }
   /deep/ .ivu-tabs-tabpane{
-    height: auto;
+    // height    : 1450px;
+    // background: black;
+    // overflow  : auto;
   }
 </style>
 

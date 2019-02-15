@@ -93,7 +93,7 @@ export default {
                     },
                     onCancel: () => {
                         this.$Message.info('登录页跳取消！');
-                        this.$Message.push('home');
+                        this.$Message.push('/');
                     }
                 });
             }

@@ -22,7 +22,7 @@
 
 export const routes = [
 	{ 
-		path     : '/home',
+		path     : '/',
 		component: resolve => require(['./components/home'], resolve)
 	},
 	{ 
@@ -54,7 +54,6 @@ export const routes = [
 			{
 				path     : '/',
 				component: resolve => require(['./components/strategy/strategy'], resolve)
-
 			},
 			{
 				path     : '/strategy_details',
@@ -66,6 +65,10 @@ export const routes = [
 				component: resolve => require(['./components/strategy/classify'], resolve)
 			}
 		]
+	},
+	{
+		path     : '/hotel',
+		component: resolve => require(['./components/hotel/index.vue'], resolve)
 	},
 	{
 		path     : '/hotel_details',
@@ -85,6 +88,9 @@ export const routes = [
 		component: resolve => require(['./components/dest/destCity'], resolve)
 	},
 
-
-	{ path: '*', redirect: '/home'},
+	{ 
+		path     : '/travel',
+		component: resolve => require(['./components/travel'], resolve)
+	},
+	{ path: '*', redirect: '/'},
 ];

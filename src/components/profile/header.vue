@@ -13,7 +13,7 @@
                     <div class="navigation">
                         <ul class="navList">
                             <li @mouseover="homeNavShow" @mouseout="homehomeNavHide">
-                                <router-link to="/home" active-class="active" title="首页">首页</router-link>
+                                <router-link to="/" active-class="active" title="首页">首页</router-link>
                             </li>
                             <li title="destination" @mouseover="desNavShow" @mouseout="desNavHide">
                                 <router-link to="/dest" title="目的地">目的地</router-link>
@@ -36,20 +36,20 @@
                                 </div>
                             </li>
                             <li title="travel" @mouseover="traNavShow" @mouseout="traNavHide">
-                                <router-link to="/" title="游记">游记</router-link>
+                                <router-link to="/travel" title="游记">游记</router-link>
                                 <div class="traNav navDiv" v-if="traNavStatus">
                                     <ul>
-                                        <li><router-link to="/" title="路线">路线</router-link></li>
-                                        <li><router-link to="/" title="地图">地图</router-link></li>
+                                        <li><router-link to="/travel" title="路线">路线</router-link></li>
+                                        <li><router-link to="/travel" title="地图">地图</router-link></li>
                                     </ul>
                                 </div>
                             </li>
                             <li title="accommodation" @mouseover="accNavShow" @mouseout="accNavHide">
-                                <router-link to="/hotel_lists" title="住宿">住宿</router-link>
+                                <router-link to="/hotel" title="住宿">住宿</router-link>
                                 <div class="accNav navDiv" v-if="accNavStatus">
                                     <ul>
-                                        <li><router-link to="/hotel_lists" title="酒店">酒店</router-link></li>
-                                        <li><router-link to="/hotel_lists" title="民宿">民宿</router-link></li>
+                                        <li><router-link to="/hotel" title="酒店">酒店</router-link></li>
+                                        <li><router-link to="/hotel" title="民宿">民宿</router-link></li>
                                     </ul>
                                 </div>
                             </li>
@@ -155,7 +155,7 @@
                                 this.$Message.success('退出登录成功！');
                                 this.$cookie.delete('nickname');
                                 this.$cookie.delete('id');
-                                this.$router.push('home');
+                                this.$router.push('/');
                             }else{
                                 this.$Message.error(res.data.message);
                             }

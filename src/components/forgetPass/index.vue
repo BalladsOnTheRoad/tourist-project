@@ -129,7 +129,7 @@ export default {
       })
     },
     backHome(){
-      this.$router.push('home');
+      this.$router.push('/');
     },
   },
   // beforeRouteLeave (to, from, next) {

@@ -54,6 +54,7 @@
 </template>
 <script>
 import { mapGetters,mapActions} from 'vuex';
+
 export default {
   data () {
     return {
@@ -76,7 +77,7 @@ export default {
   methods: {
     ...mapActions(['changeLoginStatusAction','changeUserInfoAction']),
     backHome(){
-      this.$router.push('home');
+      this.$router.push('/');
     },
     handleSubmit(name) {
           this.$refs[name].validate((valid) => {

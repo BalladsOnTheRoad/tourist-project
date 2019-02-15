@@ -33,7 +33,7 @@
 
             <div class="form_bottom">
               <p class="register">
-                <router-link to="/home">首页</router-link>
+                <router-link to="/">首页</router-link>
                 </p>
               <p class="forget_pass"><router-link :to="'/forgetpass'">忘记密码？</router-link></p>
             </div>
@@ -88,7 +88,7 @@ export default {
   methods: {
     ...mapActions(['changeLoginStatusAction','changeUserInfoAction']),
     backHome(){
-      this.$router.push('home');
+      this.$router.push('/');
     },
     handleSubmit(name) {
       
@@ -126,7 +126,7 @@ export default {
                         },
                         onCancel: () => {
                             this.$Message.info('操作取消！');
-                            this.$router.push('home');
+                            this.$router.push('/');
                         }
                       });
                   }else{

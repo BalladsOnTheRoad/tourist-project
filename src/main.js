@@ -43,7 +43,8 @@ axios.interceptors.request.use(
 );
 
 const router = new VueRouter({
-	routes: routes
+  mode  : 'history',
+  routes: routes
 })
 new Vue({
   el: '#app',
