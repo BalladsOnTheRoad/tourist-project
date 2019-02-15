@@ -18,9 +18,6 @@ import HotelLists from './components/hotel/hotel_lists';
 //目的地
 import Dest from './components/dest';
 import destCity from './components/dest/destCity';
-import ShopDetail from './components/dest/destCity/shopDetail';
-import RouteDetail from './components/dest/destCity/routeDetail';
-import Scenic from './components/dest/destCity/routeDetail/scenic';
 
 
 export const routes = [
@@ -41,9 +38,6 @@ export const routes = [
 	
 	{ path:'/dest',component:Dest},
 	{ path:'/dest/destCity/:parentId/:id',component:destCity},
-	{ path:'/dest/destCity/shopDetail/:id',component:ShopDetail},
-	{ path:'/dest/destCity/routeDetail',component:RouteDetail},
-	{ path:'/dest/destCity/routeDetail/scenic',component:Scenic},
 
 
 	{ path: '/', redirect: '/home'},
