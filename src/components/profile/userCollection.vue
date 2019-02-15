@@ -17,7 +17,8 @@
             <Tabs value="name1">
                 <TabPane label="游记" name="name1">
                     <div class="travel_box contain_box">
-                        <div class="contain_inner">
+
+                        <!-- <div class="contain_inner">
                             <div v-if="travelStatus">
                                 <div v-for="(travelList, index) in travelLists" :key="index">
                                     <public-list :data_item="travelList" kind="travel"></public-list>
@@ -28,18 +29,61 @@
                                     <router-link to="/">你还未收藏过一篇游记，快去查看更多有趣游记吧>></router-link>
                                 </div>
                             </div>
+                        </div> -->
+
+                        <div class="contain_inner">
+                            <div v-if="travelStatus" style="height:100%;">
+                                <RecycleScroller
+                                        class = "scroller"
+                                        
+                                    :items       = "travelLists"
+                                    :item-height = "270"
+                                >
+                                    <div class="travel_list user" slot-scope="{ item }">
+                                        <div class="travel_title">
+                                            <h3>{{item.title}}</h3>
+                                        </div>
+                                        <div class="travel_content">
+                                            <div>
+                                                <p v-html="item.describe"></p>
+                                                <span><router-link to="/">[详情]</router-link></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </RecycleScroller>
+                            </div>
+                            <div v-else>
+                                <div class="nonCon">
+                                    <router-link to="/">你还未收藏过一篇游记，快去查看更多有趣游记吧>></router-link>
+                                </div>
+                            </div>
                         </div>
                         
-                        <!-- <public-list></public-list> -->
                     </div>
                 </TabPane>
                 <TabPane label="攻略" name="name2">
                     <div class="strategy_box contain_box">
+
                         <div class="contain_inner">
-                            <div v-if="strategyStatus">
-                                <div v-for="(strategyList, index) in strategyLists" :key="index">
-                                    <public-list :data_item="strategyList" kind="strategy"></public-list>
-                                </div>
+                            <div v-if="strategyStatus" style="height:100%;">
+                                <RecycleScroller
+                                        class = "scroller"
+                                        
+                                    :items       = "strategyLists"
+                                    :item-height = "270"
+                                >
+                                    <div class="travel_list user" slot-scope="{ item }">
+                                        <div class="travel_title">
+                                            <h3>{{item.title}}</h3>
+                                        </div>
+                                        <div class="travel_content">
+                                            <div>
+                                                <p v-html="item.describe"></p>
+                                                <span><router-link :to="'/strategy_details?id='+item.id">[详情]</router-link></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </RecycleScroller>
                             </div>
                             <div v-else>
                                 <div class="nonCon">
@@ -47,6 +91,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         
                     </div>
                 </TabPane>
@@ -60,8 +105,8 @@ export default {
     data(){
         return{
             collectionStatus: true,
-            travelLists     : null,
-            strategyLists   : null,
+            travelLists     : [],
+            strategyLists   : [],
             travelStatus    : true,
             strategyStatus  : true,
         }
@@ -88,7 +133,7 @@ export default {
             if(res.data.status==200){
                 if(res.data.data.length!=0){
                     this.travelStatus = true;
-                    this.travelLists  = res.data.data;
+                    this.travelLists  = JSON.parse(JSON.stringify(res.data.data));
                 }else{
                     this.travelStatus = false;
                 }
@@ -103,7 +148,7 @@ export default {
             if(res.data.status==200){
                 if(res.data.data.length!=0){
                     this.strategyStatus = true;
-                    this.strategyLists  = res.data.data;
+                    this.strategyLists  = JSON.parse(JSON.stringify(res.data.data));
                 }else{
                     this.strategyStatus = false;
                 }
@@ -177,7 +222,53 @@ export default {
         height: 1080px;
     }
     .contain_inner{
-        height    : 100%;
-        overflow-y: auto;
+        height: 100%;
+    }
+
+
+
+    .scroller {
+        height: 100%;
+    }
+    // .user {
+    //     height     : 25%;
+    //     padding    : 0 12px;
+    //     display    : flex;
+    //     align-items: center;
+    // }
+    .travel_list{
+        width        : 100%;
+        height       : 245px;
+        border       : solid 1px #333333;
+        margin-bottom: 42px;
+        padding      : 14px 52px 0 47px;
+        overflow     : hidden;
+        position     : relative;
+    }
+    .travel_title{
+        overflow: hidden;
+        h3{
+            font-size   : 36px;
+            font-weight : normal;
+            font-stretch: normal;
+            color       : #333333;
+        }
+    }
+    .travel_content{
+        margin-top: 10px;
+        div{
+            font-size: 24px;
+            color    : #333333;
+            display  : inline-block;
+            a{
+                position: absolute;
+                bottom  : 10px;
+                right   : 20px;
+                color   : #0376b8;
+                &:hover{
+                    color: #ff9d00;
+                }
+            }
+        }
     }
 </style>

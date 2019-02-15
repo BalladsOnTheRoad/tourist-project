@@ -9,6 +9,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import {store} from './store';
 import VueCookie from 'vue-cookie';
 import VueQuillEditor from 'vue-quill-editor';
+import VueVirtualScroller from 'vue-virtual-scroller';
 
 
 import 'iview/dist/styles/iview.css';
@@ -16,6 +17,8 @@ import 'swiper/dist/css/swiper.css';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+
 
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
@@ -23,6 +26,7 @@ Vue.use(iView);
 Vue.use(VueAwesomeSwiper, /* { default global options } */);
 Vue.use(VueCookie);
 Vue.use(VueQuillEditor, /* { default global options } */);
+Vue.use(VueVirtualScroller);
 
 axios.interceptors.request.use(
   function(config) {

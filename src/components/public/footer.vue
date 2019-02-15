@@ -24,16 +24,16 @@
                     <div class="footer_desList footer_navList">
                         <ul class="desList">
                             <h3>
-                                <router-link to="/">目的地</router-link>
+                                <router-link to="/dest">目的地</router-link>
                             </h3>
                             <li>
-                                <router-link to="/">景点</router-link>
+                                <router-link to="/dest">景点</router-link>
                             </li>
                             <li>
-                                <router-link to="/">美食</router-link>
+                                <router-link to="/dest">美食</router-link>
                             </li>
                             <li>
-                                <router-link to="/">购物</router-link>
+                                <router-link to="/dest">购物</router-link>
                             </li>
                         </ul>
                     </div>

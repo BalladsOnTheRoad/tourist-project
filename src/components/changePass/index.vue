@@ -35,7 +35,7 @@
               <p class="register">
                 <router-link to="/home">首页</router-link>
                 </p>
-              <p class="forget_pass"><router-link :to="'/profile?id='+userId">忘记密码？</router-link></p>
+              <p class="forget_pass"><router-link :to="'/forgetpass'">忘记密码？</router-link></p>
             </div>
 
 
@@ -129,24 +129,6 @@ export default {
                             this.$router.push('home');
                         }
                       });
-                    // if(res.data.data.nickname!=this.$cookie.get('nickname')){
-                    //   this.$cookie.delete('nickname');
-                    //   this.$cookie.set('nickname',res.data.data.nickname);
-                    //   this.$store.dispatch('changeLoginStatusAction',true);
-                    //   this.$Message.success(res.data.message);
-                    //   this.$router.push({path:'/profile',query:{id:res.data.data.id}});
-                    // }else{
-                    //    this.$Modal.confirm({
-                    //     title  : '提示框',
-                    //     content: '<br/><p style="font-size:18px; ">已登录，是否跳转到个人简介页面？</p>',
-                    //     onOk   : () => {
-                    //       this.$router.push({path:'/profile',query:{id:res.data.data.id}});
-                    //     },
-                    //     onCancel: () => {
-                    //         this.$Message.info('操作取消！');
-                    //     }
-                    //   });
-                    // }
                   }else{
                     this.$Message.error(res.data.message);
                   }
@@ -156,8 +138,6 @@ export default {
                 this.$Message.error('登录失败!');
             }
           })
-          
-        
     },
     
   },

@@ -50,12 +50,12 @@
                                 <router-link to="/home"  title="首页" exact  active-class="active">首页</router-link>
                             </li>
                             <li @mouseover="desNavShow" @mouseout="desNavHide">
-                                <router-link to="/" title="目的地" >目的地</router-link>
+                                <router-link to="/dest" title="目的地" >目的地</router-link>
                                 <div class="desNav navDiv" v-show="desNavStatus">
                                     <ul>
-                                        <li><router-link to="/" title="景点">景点</router-link></li>
-                                        <li><router-link to="/" title="美食">美食</router-link></li>
-                                        <li><router-link to="/" title="购物">购物</router-link></li>
+                                        <li><router-link to="/dest" title="景点">景点</router-link></li>
+                                        <li><router-link to="/dest" title="美食">美食</router-link></li>
+                                        <li><router-link to="/dest" title="购物">购物</router-link></li>
                                     </ul>
                                 </div>
                             </li>

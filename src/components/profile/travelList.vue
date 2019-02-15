@@ -26,7 +26,7 @@ export default {
             this.linkAddress = `/strategy_details?id=${this.data_item.id}`;
         }
     }
-}
+}   
 </script>
 <style lang="scss">
     .travel_list{

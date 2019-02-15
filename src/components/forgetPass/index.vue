@@ -68,32 +68,32 @@ export default {
   },
   methods: {
     getCode() {
-      this.$Message.info('此项功能没有。');
-      // if(this.forget_form.email){
-      //   this.axios({
-      //     url   : 'http://47.98.224.37:8080/api/v1/users/forgetpassword',
-      //     method: 'get',
-      //     params: {
-      //       email: this.forget_form.email
-      //     }
-      //   }).then(res=>{
-      //     if(res.data.status==200){
-      //       this.$Message.success(res.data.message);
-      //     }else{
-      //       this.$Message.error(res.data.message);
-      //     }
-      //   })
-      // }else{
-      //   this.$Message.error('请输入你的邮箱');
-      // }
+      // this.$Message.info('此项功能没有。');
+      if(this.forget_form.email){
+        this.axios({
+          url   : 'http://47.98.224.37:8080/api/v1/users/forgetpassword',
+          method: 'get',
+          params: {
+            email: this.forget_form.email
+          }
+        }).then(res=>{
+          if(res.data.status==200){
+            this.$Message.success(res.data.message);
+          }else{
+            this.$Message.error(res.data.message);
+          }
+        })
+      }else{
+        this.$Message.error('请输入你的邮箱');
+      }
         // this.$refs[name].validate((valid) => {
         //     if (valid) {
         //         this.$Message.success('Success!');
         //         this.axios({
-        //           url:'http://47.98.224.37:8080/api/v1/users/forgetpassword',
-        //           method:'get',
-        //           params:{
-        //             email:this.forget_form.email
+        //           url   : 'http://47.98.224.37:8080/api/v1/users/forgetpassword',
+        //           method: 'get',
+        //           params: {
+        //             email: this.forget_form.email
         //           }
         //         }).then(res=>{
         //           if(res.data.status==200){
