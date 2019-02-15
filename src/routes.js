@@ -79,14 +79,12 @@ export const routes = [
 	{ 
 		path     : '/dest',
 		component: resolve => require(['./components/dest'], resolve)
-
 	},
 	{ 
 		path     : '/dest/destCity/:parentId/:id',
 		component: resolve => require(['./components/dest/destCity'], resolve)
-
 	},
 
 
-	{ path: '/', redirect: '/home'},
+	{ path: '*', redirect: '/home'},
 ];
