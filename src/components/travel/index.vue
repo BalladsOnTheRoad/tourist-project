@@ -116,21 +116,21 @@
             <ul style="display:flex;justify-content: space-between;width：1200px">
                 <li class="DaLi">
                     <router-link to="/">
-                        <img src="../../images/wKgB6lSoP1GAMiArAB3lLGJg43o03.png" alt="">
+                        <img src="@/wKgB6lSoP1GAMiArAB3lLGJg43o03.png" alt="">
                         <span>东经99°北纬25°</span>
                         <h2>大理</h2>
                     </router-link>
                 </li>
                 <li class="Pairs" >
                     <router-link to="/">
-                        <img src="../../images/wKgB6lSXmh2AHszjAAeY4299Bu4731.png" alt="">
+                        <img src="@/wKgB6lSXmh2AHszjAAeY4299Bu4731.png" alt="">
                         <span>邂逅浪漫之都</span>
                         <h2>巴黎</h2>
                     </router-link>
                 </li>
                 <li class="pujidao">
                     <router-link to="/">
-                        <img src="../../images/ccc.png" alt="">
+                        <img src="@/ccc.png" alt="">
                         <span>花开在眼前</span>
                         <h2>普吉岛</h2>
                     </router-link>
@@ -139,14 +139,14 @@
              <ul style="display:flex;justify-content: space-between;width：1200px">
                 <li class="daban" style="width:484px;text-align:left;margin-top:59px">
                     <router-link to="/">
-                        <img src="../../images/wKgBpVWk2zWAGpvhAAB42k3l3l402.png" alt="">
+                        <img src="@/wKgBpVWk2zWAGpvhAAB42k3l3l402.png" alt="">
                         <span>找一个舒服的床，躺三天</span>
                         <h2>大阪</h2>
                     </router-link>
                 </li>
                 <li class="aodaliya" style="width:662px;text-align:right;margin-left:44px;margin-top:59px">
                     <router-link to="/">
-                        <img src="../../images/wKgBpVUvV1yAeTWcAAkb0LcA-YE475.png" alt="">
+                        <img src="@/wKgBpVUvV1yAeTWcAAkb0LcA-YE475.png" alt="">
                         <span>人间四月天，我穿比基尼</span>
                         <h2>澳洲·黄金海岸</h2>
                     </router-link>
@@ -176,7 +176,7 @@
                 </router-link>
                 <router-link to="/">
                     <div style="width:590px;height:345px;overflow:hidden">
-                        <img src="../../images/wKgBpVUvV1yAeTWcAAkb0LcA-YE475.png" alt="" style="height:345px;">
+                        <img src="@/wKgBpVUvV1yAeTWcAAkb0LcA-YE475.png" alt="" style="height:345px;">
                     </div>
                 </router-link>
             </div>
@@ -184,7 +184,7 @@
              <div style="display:flex;justify-content: space-between;margin-top:5px;">
                 <router-link to="/">
                     <div style="width:590px;height:345px;overflow:hidden">
-                        <img src="../../images/wKgBpVUvV1yAeTWcAAkb0LcA-YE475.png" alt="" style="height:345px;">
+                        <img src="@/wKgBpVUvV1yAeTWcAAkb0LcA-YE475.png" alt="" style="height:345px;">
                     </div>
                 </router-link>
                 <router-link to="/">
@@ -204,7 +204,7 @@
                    <Card style="width:384px;height:400px;padding:0px">
                         <router-link to="/">
                             <div style="width:382px;height:337px">
-                                <img style="display:block" src="../../images/pexels-photo-415829.png" alt="">
+                                <img style="display:block" src="@/pexels-photo-415829.png" alt="">
                             </div>
                             <h2> 大大大美女</h2>
                         </router-link>
@@ -212,7 +212,7 @@
                 <Card style="width:384px;height:400px;padding:0px">
                     <router-link to="/">
                         <div style="width:382px;height:337px">
-                            <img style="display:block" src="../../images/pexels-photo-415829.png" alt="">
+                            <img style="display:block" src="@/pexels-photo-415829.png" alt="">
                         </div>
                         <h2> 大大大美女</h2>
                     </router-link>
@@ -220,7 +220,7 @@
                 <Card style="width:384px;height:400px;padding:0px">
                     <router-link to="/">
                         <div style="width:382px;height:337px">
-                            <img style="display:block" src="../../images/pexels-photo-415829.png" alt="">
+                            <img style="display:block" src="@/pexels-photo-415829.png" alt="">
                         </div>
                         <h2> 大大大美女</h2>
                     </router-link>

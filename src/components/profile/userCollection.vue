@@ -1,36 +1,9 @@
 <template>
     <div class="collection_wrapper">
-        <!-- <div class="write_travel">
-            <a href="javascript:;" @click="travelCom">游记</a>
-            <a href="javascript:;" @click="strategyCom">攻略</a>
-        </div> -->
-        <!-- <div class="travel_lsits">
-            <travel-list v-for="(n) in 1" :key="n"></travel-list>
-        </div> -->
         <div class="collection_box">
-            <!-- <div class="travel_col_box" v-if="collectionStatus">
-                travel
-            </div>
-            <div class="strategy_col_box" v-else>
-                strategy
-            </div> -->
             <Tabs value="name1">
                 <TabPane label="游记" name="name1">
                     <div class="travel_box contain_box">
-
-                        <!-- <div class="contain_inner">
-                            <div v-if="travelStatus">
-                                <div v-for="(travelList, index) in travelLists" :key="index">
-                                    <public-list :data_item="travelList" kind="travel"></public-list>
-                                </div>
-                            </div>
-                            <div v-else>
-                                <div class="nonCon">
-                                    <router-link to="/">你还未收藏过一篇游记，快去查看更多有趣游记吧>></router-link>
-                                </div>
-                            </div>
-                        </div> -->
-
                         <div class="contain_inner">
                             <div v-if="travelStatus" style="height:100%;">
                                 <RecycleScroller
@@ -157,36 +130,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
     .collection_wrapper{
         padding: 0 68px 0 56px;
     }   
-    // .write_travel{
-    //     text-align   : center;
-    //     margin-bottom: 15px;
-    //     a{
-    //         display      : inline-block;
-    //         width        : 200px;
-    //         height       : 50px;
-    //         line-height  : 50px;
-    //         font-size    : 24px;
-    //         color        : #ff9d00;
-    //         text-align   : center;
-    //         border       : 1px solid #ff9d00;
-    //         border-radius: 30px;
-
-    //         &:first-child{
-    //             margin-right: 100px;
-    //         }
-    //     }
-
-    // }
     .travel_lsits{
         width : 100%;
         height: 500px;
     }
     /deep/ .ivu-tabs-nav{
-        // margin: 0 auto;
         margin-left: 320px;
     }
     /deep/ .ivu-tabs-tab{
@@ -221,18 +172,9 @@ export default {
     .contain_inner{
         height: 100%;
     }
-
-
-
     .scroller {
         height: 100%;
     }
-    // .user {
-    //     height     : 25%;
-    //     padding    : 0 12px;
-    //     display    : flex;
-    //     align-items: center;
-    // }
     .travel_list{
         width        : 100%;
         height       : 245px;

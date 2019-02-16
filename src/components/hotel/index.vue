@@ -157,6 +157,10 @@ list-style: none;
 .header{
     margin-bottom: 50px;
 }
+.footer{
+    background-color: rgb(0, 0, 0);
+    opacity         : 0.96;
+}
 </style>
 
 <template>
@@ -169,21 +173,21 @@ list-style: none;
         <!-- 特色优势 -->
             <div class="TeSe">
                 <div class="tese1">
-                    <div><img src="../../images/jiudian1.png" alt=""></div>
+                    <div><img src="@/jiudian1.png" alt=""></div>
                     <div>
                         <h1>住宿攻略</h1>
                         <span>区域攻略到特色主题应有尽有</span>
                     </div>
                 </div>
                 <div class="tese1">
-                    <div><img src="../../images/jiudian2.png" alt=""></div>
+                    <div><img src="@/jiudian2.png" alt=""></div>
                     <div>
                         <h1>真实点评</h1>
                         <span>区域攻略到特色主题应有尽有</span>
                     </div>
                 </div>
                 <div class="tese1">
-                    <div><img src="../../images/jiudian3.png" alt=""></div>
+                    <div><img src="@/jiudian3.png" alt=""></div>
                     <div>
                         <h1>住宿攻略</h1>
                         <span>区域攻略到特色主题应有尽有</span>
@@ -202,27 +206,27 @@ list-style: none;
                 <div class="hotelpic_wall" >
                     <div class="hotelpic1 pic">
                         <router-link to="hotel_lists">
-                            <img src="../../images/hotelpic.png" alt="" >
+                            <img src="@/hotelpic.png" alt="" >
                         </router-link>
                     </div>
                     <div class="hotelpic2 pic">
                         <router-link to="hotel_lists">
-                            <img src="../../images/hotelpic.png" alt="" >
+                            <img src="@/hotelpic.png" alt="" >
                         </router-link>
                     </div>
                     <div class="hotelpic3 pic">
                         <router-link to="hotel_lists">
-                            <img src="../../images/hotelpic.png" alt="" >
+                            <img src="@/hotelpic.png" alt="" >
                         </router-link>
                     </div>
                     <div class="hotelpic4 pic">
                         <router-link to="hotel_lists">
-                            <img src="../../images/hotelpic.png" alt="" >
+                            <img src="@/hotelpic.png" alt="" >
                         </router-link>
                     </div>
                     <div class="hotelpic5 pic">
                         <router-link to="hotel_lists">
-                            <img src="../../images/hotelpic.png" alt="" >
+                            <img src="@/hotelpic.png" alt="" >
                         </router-link>
                     </div>
                 </div>

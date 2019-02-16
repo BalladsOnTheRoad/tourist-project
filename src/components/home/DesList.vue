@@ -7,7 +7,7 @@
                     <p>TOP<span>{{order}}</span></p>
                 </div>
                 <div class="list_img_box">
-                    <img src="../../images/desList01.jpg" alt="热门目的地一">
+                    <img src="@/desList01.jpg" alt="热门目的地一">
                 </div>
                 <div class="list_polutation">
                     <p>{{hot_area_item.perNum}} 人去过</p>

@@ -70,13 +70,13 @@
                     <div class="footer_accList footer_navList">
                         <ul class="accList">
                             <h3>
-                                <router-link to="/hotel_lists">住宿</router-link>
+                                <router-link to="/hotel">住宿</router-link>
                             </h3>
                             <li>
-                                <router-link to="/hotel_lists">酒店</router-link>
+                                <router-link to="/hotel">酒店</router-link>
                             </li>
                             <li>
-                                <router-link to="/hotel_lists">民宿</router-link>
+                                <router-link to="/hotel">民宿</router-link>
                             </li>
                         </ul>
                     </div>

@@ -4,9 +4,10 @@ var webpack = require('webpack')
 module.exports = {
   entry : './src/main.js',
   output: {
-    path      : path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename  : 'build.js'
+    path         : path.resolve(__dirname, './dist'),
+    publicPath   : '/dist/',
+    filename     : 'build.js',
+    chunkFilename: 'chunk[id].js?[chunkhash]'
   },
   module: {
     rules: [
@@ -61,11 +62,19 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test   : /\.(png|jpg|gif|svg)$/,
-        loader : 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
+        test: /\.(png|jpg|gif|svg)$/,
+        use : [
+          {
+            loader: 'url-loader',
+            // 将小于8K的图片以base64的形式打包到js文件中
+            options: {
+                limit          : 8192,
+                outputPath     : 'image/',
+                name           : '[name].[ext]?[hash]',
+                useRelativePath: true
+            }
+          }
+        ]
       },
       {
         test: /\.(eot|woff2|woff|ttf|svg)/,
@@ -84,7 +93,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      '@'   : path.resolve('./src/images')
+
     },
     extensions: ['*', '.js', '.vue', '.json']
   },

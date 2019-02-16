@@ -5,7 +5,7 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              <img src="../../images/logo.png" alt="" class="logo" @click="backHome">
+              <img src="@/logo.png" alt="" class="logo" @click="backHome">
             </div>
           </div>
 
@@ -145,28 +145,7 @@ export default {
       this.$router.push('/');
     } 
   },
-  // beforeRouteLeave (to, from, next) {
-  //   return false;
-  //   // if(this.isRegister){
-  //   //   this.$Modal.info({
-  //   //       title  : '提示框',
-  //   //       content: '<br/><p style="font-size:18px; ">你确认要离开该注册页吗？</p>',
-  //   //       onOk   : () => {
-  //   //           this.$Message.info('操作成功！');
-  //   //           next(this.isRegister);
-  //   //       },
-  //   //       onCancel: () => {
-  //   //           this.$Message.info('操作取消！');
-  //   //       }
-  //   //   });
-  //   // }else{
-  //   //   return false;
-  //   // }
-    
-  // },
-  mounted(){
 
-  }
 }
 </script>
 <style lang="scss" scoped>

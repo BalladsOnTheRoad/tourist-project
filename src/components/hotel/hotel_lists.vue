@@ -19,7 +19,7 @@
         </div>
         <div class="hotel_list_bottom">
             <div class="hotel_list_bottom_left">
-                <img src="../../images/q8.jpg" alt="">
+                <img src="@/q8.jpg" alt="">
             </div>
             <div class="hotel_list_bottom_right">
                 <ul>
@@ -55,7 +55,7 @@
         </div>
         <div class="hotel_list_bottom">
             <div class="hotel_list_bottom_left">
-                <img src="../../images/q11.jpg" alt="">
+                <img src="@/q11.jpg" alt="">
             </div>
             <div class="hotel_list_bottom_right">
                 <ul>
@@ -212,7 +212,7 @@ export default {
 .hotel_list_wrap{
 width     : 100%;
 height    : 820px;
-background: url(../../images/bg_hotel.png);
+background: url('../../images/bg_hotel.png');
 overflow  : hidden;
 margin-top: 20px;
 }

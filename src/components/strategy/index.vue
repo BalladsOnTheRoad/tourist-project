@@ -26,12 +26,8 @@ export default {
             background: url('../../images/strategy_header_bg.png') no-repeat 0 0;
         }
     }
-    
     .footer{
         background-color: #0d0d0d;
         opacity         : 0.96;
     }
-    // /deep/ .user_login{
-    //     margin-top: 15px;
-    // }
 </style>

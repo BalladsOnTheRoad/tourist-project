@@ -4,8 +4,6 @@
             <detail-header></detail-header>
         </div>
         <div>
-        <!-- 酒店详情
-       {{this.$route.query.id}} -->
     <div class="hotel_detail_wrap">
     <div class="hotel_top">
         <div class="hotel_top_name">
@@ -28,17 +26,17 @@
             <div class="hotel_details_pic1">
                 <!-- 轮播 -->
                     <swiper :options="swiperOption">
-                        <swiper-slide><img src="../../images/q11.jpg"></swiper-slide>
-                        <swiper-slide><img src="../../images/q8.jpg"></swiper-slide>
-                        <swiper-slide><img src="../../images/q12.jpg"></swiper-slide>
-                        <swiper-slide><img src="../../images/tl.jpg"></swiper-slide>
+                        <swiper-slide><img src="@/q11.jpg"></swiper-slide>
+                        <swiper-slide><img src="@/q8.jpg"></swiper-slide>
+                        <swiper-slide><img src="@/q12.jpg"></swiper-slide>
+                        <swiper-slide><img src="@/tl.jpg"></swiper-slide>
                         <div class="swiper-pagination" slot="pagination"></div>
                         <div class="swiper-button-prev" slot="button-prev"></div>
                         <div class="swiper-button-next" slot="button-next"></div>
                     </swiper>
             </div>
             <div class="hotel_details_pic2">
-                    <img src="../../images/q8.jpg" v-for="Img in Imgs"/>
+                    <img src="@/q8.jpg" v-for="Img in Imgs"/>
             </div>
         </div>
         <div class="hotel_reserve">
@@ -101,7 +99,7 @@
         <div class="hotel_basic3 hotel_basic_com">
             <span>住客评价</span>
             <div class="hotel_basic3_top">
-                <img src="../../images/q8.jpg" alt="">
+                <img src="@/q8.jpg" alt="">
                 <div class="hotel_basic3_star">
                     <span v-for="star in stars"></span>
                 </div>
@@ -244,7 +242,7 @@ export default {
             width          : 33px;
             height         : 33px;
             float          : left;
-            background     : url(../../images/star.png) no-repeat;
+            background     : url('../../images/star.png') no-repeat;
             background-size: 35px 35px;
             margin-right   : 3px;
         }
@@ -505,7 +503,7 @@ export default {
             margin-left: 4px;
             width      : 27px;
             height     : 22px;
-            background : url(../../images/VIP.png) no-repeat;
+            background : url('../../images/VIP.png') no-repeat;
         }
     }
 }

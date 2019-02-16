@@ -473,7 +473,7 @@
       <p class="recommendCity">城市推荐</p>
       <div style="display: flex;justify-content: space-between;">
         <div class="recommendCityList">
-          <img src="../../images/hz.jpg" alt="" srcset="">
+          <img src="@/hz.jpg" alt="" srcset="">
           <div class="allCountryName"> {{ hangzhou }} </div>
           <div class="allCountryText">
             <router-link to="./dest/destCity/12/388" class="details">杭州人文古迹众多，西湖及其周边有大量的自然及人文景观遗迹，具代表性的有西湖文化、良渚文化、丝绸文化、茶文化，以及流传下来的许多故事传说成为杭州文化代表。</router-link>
@@ -481,7 +481,7 @@
         </div>
         <div class="recommendCityList">
           <div>
-          <img src="../../images/wh.jpg" alt="" srcset="">
+          <img src="@/wh.jpg" alt="" srcset="">
           <div class="allCountryName"> {{ wuhan }} </div>
           <div class="allCountryText">
             <router-link to="./dest/destCity/18/179" class="details">武汉是国家历史文化名城和首批中国优秀旅游城市，每年举办武汉国际旅游节。武汉自然风光独特，四季气候分明，拥有其他大都市罕有的166个湖泊和众多山峦。武汉的人文景观具有浓郁的楚文化特色。</router-link>
@@ -490,7 +490,7 @@
         </div>
         <div class="recommendCityList">
           <div>
-          <img src="../../images/sh.jpg" alt="" srcset="">
+          <img src="@/sh.jpg" alt="" srcset="">
           <div class="allCountryName"> {{ shanghai }} </div>
           <div class="allCountryText">
             <router-link to="./dest/destCity/10/299" class="details">上海拥有世界各国的饮食文化、经典时尚的购物和浓郁商业气息。西餐汇聚世界各地30多个国家的风味。中餐汇聚中国几乎所有地方风味，著名的有老城隍庙、云南路、黄河路、仙霞路等饮食文化区</router-link>
@@ -499,7 +499,7 @@
         </div>
         <div class="recommendCityList">
           <div>
-          <img src="../../images/km.jpg" alt="" srcset="">
+          <img src="@/km.jpg" alt="" srcset="">
           <div class="allCountryName"> {{ kunming }} </div>
           <div class="allCountryText">
             <router-link to="./dest/destCity/26/372" class="details">昆明享“春城”之美誉，中国面向东南亚、南亚开放的门户城市，国家历史文化名城。是中国重要的旅游、商贸城市，西部地区重要的中心城市之一。</router-link>

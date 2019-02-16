@@ -5,7 +5,7 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              <img src="../../images/logo.png" alt="" class="logo" @click="backHome">
+              <img src="@/logo.png" alt="" class="logo" @click="backHome">
             </div>
           </div>
 

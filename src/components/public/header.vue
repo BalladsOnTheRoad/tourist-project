@@ -2,11 +2,11 @@
     <div>
         <div class="swiper_banner">
             <swiper :options="swiperOption">
-                <swiper-slide><img src="../../images/public_header01.jpg" alt="ad1" ></swiper-slide>
-                <swiper-slide><img src="../../images/public_header02.jpg" alt="ad2" ></swiper-slide>
-                <swiper-slide><img src="../../images/public_header03.jpg" alt="ad3" ></swiper-slide>
-                <swiper-slide><img src="../../images/public_header04.jpg" alt="ad4" ></swiper-slide>
-                <swiper-slide><img src="../../images/public_header05.jpg" alt="ad5" ></swiper-slide>
+                <swiper-slide><img src="@/public_header01.jpg" alt="ad1" ></swiper-slide>
+                <swiper-slide><img src="@/public_header02.jpg" alt="ad2" ></swiper-slide>
+                <swiper-slide><img src="@/public_header03.jpg" alt="ad3" ></swiper-slide>
+                <swiper-slide><img src="@/public_header04.jpg" alt="ad4" ></swiper-slide>
+                <swiper-slide><img src="@/public_header05.jpg" alt="ad5" ></swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
                 <div class="swiper-button-next" slot="button-next"></div>
@@ -50,7 +50,7 @@
                                 <router-link to="/"  title="首页" exact  active-class="active">首页</router-link>
                             </li>
                             <li @mouseover="desNavShow" @mouseout="desNavHide">
-                                <router-link to="/dest" title="目的地" >目的地</router-link>
+                                <router-link to="/dest" title="目的地" active-class="active">目的地</router-link>
                                 <div class="desNav navDiv" v-show="desNavStatus">
                                     <ul>
                                         <li><router-link to="/dest" title="景点">景点</router-link></li>
@@ -60,7 +60,7 @@
                                 </div>
                             </li>
                             <li @mouseover="strNavShow" @mouseout="strNavHide">
-                                <router-link to="/strategy" title="攻略">攻略</router-link>
+                                <router-link to="/strategy" title="攻略" active-class="active">攻略</router-link>
                                 <div class="strNav navDiv" v-if="strNavStatus">
                                     <ul>
                                         <li><router-link to="/strategy" title="热门攻略">热门攻略</router-link></li>
@@ -70,7 +70,7 @@
                                 </div>
                             </li>
                             <li @mouseover="traNavShow" @mouseout="traNavHide">
-                                <router-link to="/travel" title="游记">游记</router-link>
+                                <router-link to="/travel" title="游记" active-class="active">游记</router-link>
                                 <div class="traNav navDiv" v-if="traNavStatus">
                                     <ul>
                                         <li><router-link to="/travel" title="路线">路线</router-link></li>
@@ -79,7 +79,7 @@
                                 </div>
                             </li>
                             <li @mouseover="accNavShow" @mouseout="accNavHide">
-                                <router-link to="/hotel" title="住宿">住宿</router-link>
+                                <router-link to="/hotel" title="住宿" active-class="active">住宿</router-link>
                                 <div class="accNav navDiv" v-if="accNavStatus">
                                     <ul>
                                         <li><router-link to="/hotel" title="酒店">酒店</router-link></li>

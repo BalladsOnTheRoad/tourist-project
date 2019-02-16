@@ -119,7 +119,7 @@
             <div class="liu">
                 <div class="liu_1 liu_com">
                     <div id="box2">
-                        <img src="../../images/1.png" alt="">
+                        <img src="@/1.png" alt="">
                     <div class="liu_titile">古镇</div>
                     <div class="liu_content"><p>哇哇哇哇哇</p>我钱钱钱顶哈哈</div>
                     <div class="small_liu">
@@ -132,7 +132,7 @@
                 <div  class="liu_2 liu_com">
                     <div id="box1"></div>
                     <div id="box2">
-                        <img src="../../images/1.png" alt="">
+                        <img src="@/1.png" alt="">
                         <div class="liu_titile">古镇</div>
                         <div class="liu_content"><p>哇哇哇哇哇</p>我钱钱钱顶哈哈</div>
                     <div class="small_liu">
@@ -146,7 +146,7 @@
                 <div  class="liu_3 liu_com">
                     <div id="box1"></div>
                     <div id="box2">
-                        <img src="../../images/1.png" alt="">
+                        <img src="@/1.png" alt="">
                         <div class="liu_titile">古镇</div>
                         <div class="liu_content"><p>哇哇哇哇哇</p>我钱钱钱顶哈哈</div>
                         <div class="small_liu">

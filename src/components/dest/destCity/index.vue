@@ -190,7 +190,7 @@
   .illustration .bigImg{
     width          : 1200px;
     height         : 280px;
-    background     : url('../../../images/titlebg.png') no-repeat;
+    background     : url('../../../images/time.png') no-repeat;
     background-size: 100% 100%;
   }
   .shopIntroduce{

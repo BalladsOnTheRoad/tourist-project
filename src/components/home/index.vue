@@ -26,7 +26,7 @@
                     
                     <div class="list_top">
                       <div class="list_img_box">
-                          <img src="../../images/desList01.jpg" alt="热门目的地一">
+                          <img src="@/desList01.jpg" alt="热门目的地一">
                       </div>
                       <div class="lb_mask">
                       

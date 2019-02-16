@@ -1,7 +1,6 @@
 <template>
     <div class="tra_node_list">
         <div class="img_box">
-            <!-- <img src="../../images/public_header02.jpg" alt=""> -->
             <img :src="hot_tra_note.image" alt="">
 
         </div>
@@ -9,22 +8,17 @@
             <div class="node_container">
                 <div class="node_tag">
                     <router-link to="/">
-                        <!-- {{hot_tra_note.tag[0].name?hot_tra_note.tag[0].name:'热门景点'}} -->
                         {{hot_tra_note.tag[0]?hot_tra_note.tag[0].name:'热门游记'}}
                     </router-link>
                 </div>
                 <div class="node_title">
                     <h3>
-                        <!-- 成全你的难忘“漂流记” ── 7处推荐别错过
-                        -->
                         {{hot_tra_note.title}}
                     </h3>
                 </div>
                 <div class="node_content">
                     <p>
-                        <!-- 芙花芬度假酒店位于小小的NAKATCHAFUSHI岛上，隐匿在北马累岛庇护的水域里。每间僻静客房都有自己的跳水池、BOSE音响系统和设施齐全的吧台。一天浮潜或是玩沙结束后，可以在酒店的庭院餐厅里一边享用美味的海鲜，一边欣赏印度洋的美景。这座私密的波利尼西亚度假村拥有梦幻的地理位置，位于PAPETOAI闪闪发亮的蓝色泻湖中央。你可随意地跳下入住的洋房甲板，浮潜或是玩皮划艇，还有部分客房提供私人小型泳池或搭建在水上的透明玻璃观海台。更值得一提的是，整座度假村以其微妙的生态系统而著称，是热爱自然的旅行者不可多得的住宿之选。 -->
                         {{hot_tra_note.describe}}
-
                     </p>
                 </div>
             </div>
@@ -39,7 +33,6 @@
                     </div>
                     <div class="user_name">
                         <p>
-                            <!-- 皮皮虾我们一起走 -->
                             {{hot_tra_note.author.name}}
                         </p>
                     </div>
@@ -50,19 +43,19 @@
                     <ul>
                         <li>
                             <a href="javascript:;" @click="collectTravel(hot_tra_note.id)">
-                                <img src="../../images/collect.png" alt="">
+                                <img src="@/collect.png" alt="">
                                 <span>{{hot_tra_note.collectnum}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="javascript:;" @click="praiseTravel(hot_tra_note.id)">
-                                <img src="../../images/like.png" alt="">
+                                <img src="@/like.png" alt="">
                                 <span>{{hot_tra_note.praisenum}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="javascript:;" @click="commentTravel(hot_tra_note.id)">
-                                <img src="../../images/comment.png" alt="">
+                                <img src="@/comment.png" alt="">
                                 <span>{{hot_tra_note.clicknum}}</span>
                             </a>
                         </li>

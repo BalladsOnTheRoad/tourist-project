@@ -5,7 +5,7 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              <img src="../../images/logo.png" alt="" class="logo" @click="backHome">
+              <img src="@/logo.png" alt="" class="logo" @click="backHome">
             </div>
           </div>
 
@@ -86,25 +86,7 @@ export default {
       }else{
         this.$Message.error('请输入你的邮箱');
       }
-        // this.$refs[name].validate((valid) => {
-        //     if (valid) {
-        //         this.$Message.success('Success!');
-        //         this.axios({
-        //           url   : 'http://47.98.224.37:8080/api/v1/users/forgetpassword',
-        //           method: 'get',
-        //           params: {
-        //             email: this.forget_form.email
-        //           }
-        //         }).then(res=>{
-        //           if(res.data.status==200){
-        //             this.$Message.success(res.data.message);
 
-        //           }
-        //         })
-        //     } else {
-        //         this.$Message.error('Fail!');
-        //     }
-        // })
     },
     submitForm(name){
       this.$refs[name].validate((valid) => {
@@ -132,19 +114,6 @@ export default {
       this.$router.push('/');
     },
   },
-  // beforeRouteLeave (to, from, next) {
-  //   this.$Modal.info({
-  //       title  : '提示框',
-  //       content: '<br/><p style="font-size:18px; ">你确认要离开该忘记密码页面吗？</p>',
-  //       onOk   : () => {
-  //           this.$Message.info('操作成功！');
-  //           next();
-  //       },
-  //       onCancel: () => {
-  //           this.$Message.info('操作取消！');
-  //       }
-  //   });
-  // }
 }
 </script>
 <style lang="scss" scoped>

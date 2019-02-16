@@ -5,7 +5,7 @@
 
           <div class="login_logo_outer">
             <div class="login_logo_inner">
-              <img src="../../images/logo.png" alt="" class="logo" @click="backHome">
+              <img src="@/logo.png" alt="" class="logo" @click="backHome">
             </div>
           </div>
 
@@ -142,24 +142,6 @@ export default {
   computed:{
     ...mapGetters(['getLoginStatus','getUserInfo']),
   },
-  // beforeRouteLeave (to, from, next) {
-  //   this.$Modal.info({
-  //       title  : '提示框',
-  //       content: '<br/><p style="font-size:18px; ">你确认要离开该登录页吗？</p>',
-  //       onOk   : () => {
-  //           this.$Message.info('操作成功！');
-  //           next();
-  //       },
-  //       onCancel: () => {
-  //           this.$Message.info('操作取消！');
-  //       }
-  //   });
-  // },
-  mounted(){
-    
-  }
- 
- 
 }
 </script>
 <style lang="scss" scoped>

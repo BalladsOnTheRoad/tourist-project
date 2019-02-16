@@ -55,7 +55,6 @@
                         <span>{{formData.collectnum}}</span> 收藏
                     </Button>
                     
-                    <!-- <div class="details_comment2"><span>{{formData.collectnum}}</span> 收藏</div> -->
                 </div>
             </div>
             <!-- 这是文章加目录 -->
@@ -135,10 +134,6 @@ export default {
                     onOk   : () => {
                         this.$router.push({path:'/profile',query:{id:this.$cookie.get('id')}});
                     },
-                    // onCancel: () => {
-                    //     this.$Message.info('操作取消！');
-                    //     this.$router.push('home');
-                    // }
                 });
                 }
             })
@@ -258,9 +253,6 @@ export default {
             }
         }
     },
-    // mounted(){
-    //     this.getDetails()
-    // },
     beforeMount(){
         this.getDetails()
     }

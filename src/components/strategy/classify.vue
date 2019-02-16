@@ -12,7 +12,7 @@
                     <div class="Str_classify_top">
                         {{name}}
                     </div>
-                    <img style="width:350px;height:230px" src="../../images/q8.jpg"/>
+                    <img style="width:350px;height:230px" src="@/q8.jpg"/>
                     </router-link>
                 </li>
             </ul>
@@ -26,7 +26,7 @@
                     <div class="Str_classify_top">
                         {{name}}
                     </div>
-                    <img style="width:350px;height:230px" src="../../images/q11.jpg"/>
+                    <img style="width:350px;height:230px" src="@/q11.jpg"/>
                     </router-link>
                 </li>
             </ul>
