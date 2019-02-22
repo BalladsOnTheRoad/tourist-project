@@ -480,6 +480,9 @@
         color         : #ffffff;
         margin-right  : 40px;
     }
+    /deep/ .ivu-radio-inner:after{
+        background: #ff9d00;
+    }
     /deep/ .ivu-radio{
         width       : 20px;
         height      : 20px;
